@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "DotEnv.Core/3.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/DotEnv.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/DotEnv.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
         "type": "package",
         "build": {
@@ -92,6 +105,22 @@
     }
   },
   "libraries": {
+    "DotEnv.Core/3.0.0": {
+      "sha512": "RGSFfhh9N0kBw5vIuJ0vo0pxuirWfZnoPBRkB2/5Lx1IIdg3cd8frZxkPotn5ku8hZ6iiG+56ou2BcLZEHugVQ==",
+      "type": "package",
+      "path": "dotenv.core/3.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "README.md",
+        "dotenv-icon-nuget.png",
+        "dotenv.core.3.0.0.nupkg.sha512",
+        "dotenv.core.nuspec",
+        "lib/netstandard2.0/DotEnv.Core.dll",
+        "lib/netstandard2.0/DotEnv.Core.xml"
+      ]
+    },
     "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
       "sha512": "Ckb5EDBUNJdFWyajfXzUIMRkhf52fHZOQuuZg/oiu8y7zDCVwD0iHhew6MnThjHmevanpxL3f5ci2TtHQEN6bw==",
       "type": "package",
@@ -424,6 +453,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "DotEnv.Core >= 3.0.0",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
   },
@@ -464,6 +494,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "DotEnv.Core": {
+            "target": "Package",
+            "version": "[3.0.0, )"
+          },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[6.4.0, )"

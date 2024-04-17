@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "hivzEdjq/3zu0A1y6KpgxyU0MCYYnuXRBAGCkfbmrPGm8xJzW3Pm+KPPABq3JtCF9YgmsqH3zy2HtnpOAuBIUA==",
+  "dgSpecHash": "sjiPK1wWPoFPCdwg4XE5mmu6sK+qfyXN8DBl44gGRodmiMqJOVIicvdNf4so2wvpItNoxXvKTBV/yxKnFEdXLw==",
   "success": true,
   "projectFilePath": "/home/abrunker/personal/media-api/media-api.csproj",
   "expectedPackageFiles": [
+    "/home/abrunker/.nuget/packages/dotenv.core/3.0.0/dotenv.core.3.0.0.nupkg.sha512",
     "/home/abrunker/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "/home/abrunker/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
     "/home/abrunker/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",

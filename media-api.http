@@ -3,4 +3,7 @@
 GET {{media_api_HostAddress}}/weatherforecast/
 Accept: application/json
 
+GET {{media_api_HostAddress}}/plex/library/
+Accept: application/json
+
 ###

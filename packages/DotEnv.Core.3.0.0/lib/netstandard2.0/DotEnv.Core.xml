@@ -1,0 +1,2096 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DotEnv.Core</name>
+    </assembly>
+    <members>
+        <member name="T:DotEnv.Core.BinderException">
+            <summary>
+            The exception that is thrown when the binder encounters one or more errors.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.BinderException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.BinderException" /> class.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.BinderException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.BinderException" /> class with the a specified error message.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="T:DotEnv.Core.EnvBinder">
+            <inheritdoc cref="T:DotEnv.Core.IEnvBinder" />
+        </member>
+        <member name="M:DotEnv.Core.EnvBinder.IgnoreException">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvBinder.AllowBindNonPublicProperties">
+            <inheritdoc />
+        </member>
+        <member name="F:DotEnv.Core.EnvBinder._configuration">
+            <summary>
+            Allows access to the configuration options for the binder.
+            </summary>
+        </member>
+        <member name="F:DotEnv.Core.EnvBinder._validationResult">
+            <summary>
+            Allows access to the errors container of the binder.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.EnvBinder.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.EnvBinder" /> class.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.EnvBinder.#ctor(DotEnv.Core.IEnvironmentVariablesProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.EnvBinder" /> class with environment variables provider.
+            </summary>
+            <param name="provider">The environment variables provider.</param>
+        </member>
+        <member name="M:DotEnv.Core.EnvBinder.Bind``1">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvBinder.Bind``1(DotEnv.Core.EnvValidationResult@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvBinder.IsReadOnlyOrWriteOnly(System.Reflection.PropertyInfo)">
+            <summary>
+            Checks whether the property is read-only or write-only.
+            </summary>
+            <returns><c>true</c> if the property is read-only or write-only, or <c>false</c> if the property is read-write.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvBinder.ConvertToUpperCaseSnakeCase(System.String@,System.Text.StringBuilder)">
+            <summary>
+            Converts the variable name to UpperCaseSnakeCase.
+            </summary>
+            <param name="variableName">The name of the variable to convert.</param>
+            <param name="newKey">Save a new key with the 'UpperCaseSnakeCase' convention.</param>
+            <returns>The variable name using the 'UpperCaseSnakeCase' convention.</returns>
+            <example>
+            This is the 'UpperCaseSnakeCase' convention:
+            VARIABLE_NAME
+            </example>
+        </member>
+        <member name="M:DotEnv.Core.EnvBinder.ChangeType(System.String,System.Type)">
+            <summary>
+            Changes the data type of a value to another type.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="conversionType">The type of object to return.</param>
+            <returns>
+            A tuple with the converted value and 
+            a boolean value indicating whether the operation was successful.
+            </returns>
+        </member>
+        <member name="T:DotEnv.Core.EnvBinderOptions">
+            <summary>
+            Represents the options for configuring various behaviors of the binder.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvBinderOptions.ThrowException">
+            <summary>
+            A value indicating whether the binder should throw an exception when it encounters one or more errors. Its default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvBinderOptions.BindNonPublicProperties">
+            <summary>
+            When <c>false</c> (the default), the binder will only to set public properties. 
+            If <c>true</c>, the binder will to set all non-public properties.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvBinderOptions.EnvVars">
+            <summary>
+            Gets or sets the environment variables provider.
+            </summary>
+        </member>
+        <member name="T:DotEnv.Core.EnvKeyAttribute">
+            <summary>
+            Represents the key of a .env file that is assigned to a property.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvKeyAttribute.Name">
+            <summary>
+            Gets the name of the key the property is mapped to.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.EnvKeyAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.EnvKeyAttribute" /> class.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.EnvKeyAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.EnvKeyAttribute" /> class with the name of the key.
+            </summary>
+            <param name="name">The name of the key the property is mapped to.</param>
+        </member>
+        <member name="T:DotEnv.Core.IEnvBinder">
+            <summary>
+            Allows binding strongly typed objects to configuration values.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.IEnvBinder.Bind``1(DotEnv.Core.EnvValidationResult@)">
+            <param name="result">The result contains the errors found by the binder.</param>
+            <inheritdoc cref="M:DotEnv.Core.IEnvBinder.Bind``1" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvBinder.Bind``1">
+            <summary>
+            Binds the instance of the environment variables provider to a new instance of type TSettings.
+            </summary>
+            <typeparam name="TSettings">The type of the new instance to bind.</typeparam>
+            <exception cref="T:DotEnv.Core.BinderException">
+            If the binder encounters one or more errors.
+            </exception>
+            <remarks>Binds only read-write properties and, moreover, only sets public properties.</remarks>
+            <returns>The new instance of TSettings.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvBinder.IgnoreException">
+            <summary>
+            Disables/ignores <see cref="T:DotEnv.Core.BinderException" />. This method tells the binder not to throw an exception when it encounters one or more errors.
+            </summary>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvBinder.AllowBindNonPublicProperties">
+            <summary>
+            Allows binding of non-public properties.
+            This method tells the binder that it can set non-public properties.
+            </summary>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="T:DotEnv.Core.ExceptionMessages">
+            <summary>
+            Represents the messages of an exception.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.EnumerableExtensions.IsEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Checks if the collection is empty.
+            </summary>
+            <returns>true if the collecion is empty, or false.</returns>
+        </member>
+        <member name="M:DotEnv.Core.StringExtensions.Split(System.String,System.Char,System.Int32)">
+            <summary>
+            Splits a string into a maximum number of substrings based on a specified delimiting character.
+            </summary>
+            <param name="str"></param>
+            <param name="separator">A character that delimits the substrings in this instance.</param>
+            <param name="count">The maximum number of elements expected in the array.</param>
+            <returns>An array that contains at most count substrings from this instance that are delimited by separator.</returns>
+        </member>
+        <member name="M:DotEnv.Core.StringExtensions.StartsWith(System.String,System.Char)">
+            <summary>
+            Determines whether this string instance starts with the specified character. 
+            </summary>
+            <param name="str"></param>
+            <param name="value">The character to compare.</param>
+            <returns>true if value matches the beginning of this string; otherwise, false.</returns>
+        </member>
+        <member name="M:DotEnv.Core.StringExtensions.EndsWith(System.String,System.Char)">
+            <summary>
+            Determines whether the end of this string instance matches the specified character.
+            </summary>
+            <param name="str"></param>
+            <param name="value">The character to compare to the character at the end of this instance.</param>
+            <returns>true if value matches the end of this instance; otherwise, false.</returns>
+        </member>
+        <member name="M:DotEnv.Core.TypeExtensions.GetPublicAndNonPublicProperties(System.Type)">
+            <summary>
+            Returns all public and non-public properties.
+            </summary>
+            <param name="type"></param>
+            <returns>
+            An array of <see cref="T:System.Reflection.PropertyInfo" /> objects representing all public and non-public properties of the current <see cref="T:System.Type" />.
+            </returns>
+        </member>
+        <member name="T:DotEnv.Core.DotEnvHelper">
+            <summary>
+            Represents the Main Helper of DotEnv.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.DotEnvHelper.ChangeType(System.String,System.Type)">
+            <summary>
+            Returns an object of the specified type.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <param name="conversionType">The type of object to return.</param>
+            <returns>An object whose type is <c>conversionType</c>.</returns>
+            <exception cref="T:System.ArgumentException">
+            <c>value</c> is either an empty string ("") or only contains white space.
+            -or-
+            <c>value</c> is a name, but not one of the named constants defined for the enumeration.
+            </exception>
+            <exception cref="T:System.FormatException">
+            <c>value</c> is not in a format recognized by <c>conversionType</c>.
+            </exception>
+        </member>
+        <member name="M:DotEnv.Core.DotEnvHelper.AreNotNull(System.Object[])">
+            <summary>
+            Checks if the passed elements are not null.
+            </summary>
+            <param name="elements">The elements to validate.</param>
+            <returns>true if all elements are not null, or false.</returns>
+        </member>
+        <member name="T:DotEnv.Core.Env">
+            <summary>
+            This class defines methods to perform checks with the current environment.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.Env.CurrentEnvironment">
+            <summary>
+            Gets or sets the current environment (dev, test, staging, or production).
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.Env.IsDevelopment">
+            <summary>
+            Checks if the current environment name is <c>development</c>, or <c>dev</c>.
+            </summary>
+            <returns><c>true</c> if the environment name is development or dev, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:DotEnv.Core.Env.IsTest">
+            <summary>
+            Checks if the current environment name is <c>test</c>.
+            </summary>
+            <returns><c>true</c> if the environment name is test, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:DotEnv.Core.Env.IsStaging">
+            <summary>
+            Checks if the current environment name is <c>staging</c>.
+            </summary>
+            <returns><c>true</c> if the environment name is staging, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:DotEnv.Core.Env.IsProduction">
+            <summary>
+            Checks if the current environment name is <c>production</c>, or <c>prod</c>.
+            </summary>
+            <returns><c>true</c> if the environment name is production or prod, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:DotEnv.Core.Env.IsEnvironment(System.String)">
+            <summary>
+            Compares the current environment name against the specified value.
+            </summary>
+            <param name="environmentName">The environment name to validate against.</param>
+            <returns><c>true</c> if the specified name is the same as the current environment, otherwise <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>environmentName</c> is <c>null</c>.</exception>
+        </member>
+        <member name="T:DotEnv.Core.EnvValidationResult">
+            <summary>
+            Represents a container for the results of a validation.
+            </summary>
+        </member>
+        <member name="F:DotEnv.Core.EnvValidationResult._errors">
+            <summary>
+            Allows access to the errors collection.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.EnvValidationResult.HasError">
+            <summary>
+            Checks if there has been an error.
+            </summary>
+            <returns><c>true</c> if an error occurred, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="P:DotEnv.Core.EnvValidationResult.Count">
+            <summary>
+            Gets the number of errors contained in the container.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvValidationResult.ErrorMessages">
+            <summary>
+            Gets the error messages.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.EnvValidationResult.Add(System.String)">
+            <summary>
+            Adds the error message to the collection.
+            </summary>
+            <param name="errorMsg">The message that describes the error.</param>
+        </member>
+        <member name="M:DotEnv.Core.EnvValidationResult.AddRange(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Adds a set of error messages to the collection.
+            </summary>
+            <param name="errorMessages">A set of error messages.</param>
+        </member>
+        <member name="M:DotEnv.Core.EnvValidationResult.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the errors contained in the container.
+            </summary>
+            <returns>An enumerator that can be used to iterate through the errors contained in the container.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvValidationResult.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc cref="M:DotEnv.Core.EnvValidationResult.GetEnumerator" />
+        </member>
+        <member name="T:DotEnv.Core.FormattingMessage">
+            <summary>
+            Define methods that format error messages.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.FormattingMessage.FormatLocalFileNotPresentMessage(System.String,System.String)">
+            <summary>
+            Formats an error message in case the local file is not present in any directory.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+            <param name="environmentName">The name of the current environment.</param>
+            <returns>A formatted error message.</returns>
+        </member>
+        <member name="M:DotEnv.Core.FormattingMessage.FormatParserExceptionMessage(System.String,System.Object,System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
+            <summary>
+            Formats an error message in case the parser encounters errors.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+            <param name="actualValue">The actual value that caused the error.</param>
+            <param name="lineNumber">The line number that caused the error.</param>
+            <param name="column">The column that caused the error.</param>
+            <param name="envFileName">The name of the .env file that caused the error.</param>
+            <returns>A formatted error message.</returns>
+        </member>
+        <member name="T:DotEnv.Core.EnvFile">
+            <summary>
+            Represents an env file.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvFile.Path">
+            <summary>
+            Gets or sets the path of an .env file.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvFile.Encoding">
+            <summary>
+            Gets or sets the encoding of an .env file.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvFile.Exists">
+            <summary>
+            A value indicating whether the .env file is present in any directory. Its default value is true.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvFile.Optional">
+            <summary>
+            A value indicating whether the existence of the .env file is optional or not.
+            </summary>
+        </member>
+        <member name="T:DotEnv.Core.EnvLoader">
+            <inheritdoc cref="T:DotEnv.Core.IEnvLoader" />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.SetDefaultEnvFileName(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.SetBasePath(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.AddEnvFiles(System.String[])">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.AddEnvFile(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.AddEnvFile(System.String,System.Text.Encoding)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.AddEnvFile(System.String,System.Text.Encoding,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.AddEnvFile(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.AddEnvFile(System.String,System.String,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.AddEnvFile(System.String,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.SetEncoding(System.Text.Encoding)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.SetEncoding(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.EnableFileNotFoundException">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.SetEnvironmentName(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.AllowAllEnvFilesOptional">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.IgnoreParentDirectories">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.DisableTrimStartValues">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.DisableTrimEndValues">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.DisableTrimValues">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.DisableTrimStartKeys">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.DisableTrimEndKeys">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.DisableTrimKeys">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.DisableTrimStartComments">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.AllowOverwriteExistingVars">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.SetCommentChar(System.Char)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.SetDelimiterKeyValuePair(System.Char)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.AllowConcatDuplicateKeys(DotEnv.Core.ConcatKeysOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.IgnoreParserException">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.AvoidModifyEnvironment">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.SetEnvironmentVariablesProvider(DotEnv.Core.IEnvironmentVariablesProvider)">
+            <inheritdoc />
+        </member>
+        <member name="F:DotEnv.Core.EnvLoader._configuration">
+            <summary>
+            Allows access to the configuration options for the loader.
+            </summary>
+        </member>
+        <member name="F:DotEnv.Core.EnvLoader._parser">
+            <summary>
+            Allows access to the members that control the parser.
+            </summary>
+        </member>
+        <member name="F:DotEnv.Core.EnvLoader._validationResult">
+            <summary>
+            Allows access to the errors container of the loader.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.Load">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.Load(DotEnv.Core.EnvValidationResult@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.LoadEnv">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.LoadEnv(DotEnv.Core.EnvValidationResult@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.CheckEnvFileNotExistsAndNotOptional(DotEnv.Core.EnvFile)">
+            <summary>
+            Checks if the .env file does not exist and is not optional.
+            </summary>
+            <param name="envFile">The instance representing the .env file.</param>
+            <exception cref="T:System.ArgumentNullException"><c>envFile</c> is <c>null</c>.</exception>
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.CreateAndThrowFileNotFoundException">
+            <summary>
+            Creates and throws an exception of type <see cref="T:System.IO.FileNotFoundException" />.
+            </summary>
+            <exception cref="T:System.IO.FileNotFoundException"></exception>
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.CombineContainers">
+            <summary>
+            Combines the container of the loader with the parser.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.ReadAndParse(DotEnv.Core.EnvFile)">
+            <summary>
+            Reads the contents of a .env file and invokes the parser.
+            </summary>
+            <param name="envFile">The instance representing the .env file.</param>
+            <exception cref="T:System.ArgumentNullException"><c>envFile</c> is <c>null</c>.</exception>
+            <returns>true if the .env file exists, otherwise false.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.SetConfigurationEnvFile(DotEnv.Core.EnvFile)">
+            <summary>
+            Sets the configuration of a .env file.
+            </summary>
+            <param name="envFile">The instance representing the .env file.</param>
+            <exception cref="T:System.ArgumentNullException"><c>envFile</c> is <c>null</c>.</exception>
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.GetInstanceForOutParams">
+            <summary>
+            Gets an instance for an out parameter ('result').
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.GetEnvFilePath(System.String)">
+            <summary>
+            Gets the full path of the .env file.
+            </summary>
+            <param name="envFileName">
+            The name of the .env file to search for.
+            The .env file name can include an absolute or relative path.
+            </param>
+            <returns>The path of the .env file, otherwise <c>null</c> if not found.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>envFileName</c> is <c>null</c>.</exception>
+            <inheritdoc cref="M:DotEnv.Core.EnvLoader.Load" path="/remarks" />
+        </member>
+        <member name="M:DotEnv.Core.EnvLoader.AddOptionalEnvFiles(System.String[])">
+            <summary>
+            Adds optional .env files to a collection.
+            </summary>
+            <param name="envFilesNames">The names of the .env files.</param>
+            <exception cref="T:System.ArgumentNullException"><c>envFilesNames</c> is <c>null</c>.</exception>
+        </member>
+        <member name="T:DotEnv.Core.EnvLoaderOptions">
+            <summary>
+            Represents the options for configuring various behaviors of the loader.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvLoaderOptions.DefaultEnvFileName">
+            <summary>
+            Gets or sets the default name of an .env file.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvLoaderOptions.BasePath">
+            <summary>
+            Gets or sets the base path for the .env files.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvLoaderOptions.EnvFiles">
+            <summary>
+            Gets or sets the collection of .env files.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvLoaderOptions.Encoding">
+            <summary>
+            Gets or sets the encoding for the .env files. Its default value is UTF-8.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvLoaderOptions.ThrowFileNotFoundException">
+            <summary>
+            A value indicating whether <see cref="T:System.IO.FileNotFoundException" /> may be thrown when the .env file is not found. Its default value is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvLoaderOptions.EnvironmentName">
+            <summary>
+            Gets or sets the name of the environment.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvLoaderOptions.Optional">
+            <summary>
+            A value indicating whether the .env files should be optional. Its default value is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvLoaderOptions.SearchParentDirectories">
+            <summary>
+            A value indicating whether the loader should search the parent directories when it does not find the .env file in a specific directory.
+            Its default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="T:DotEnv.Core.IEnvLoader">
+            <summary>
+            Represents the .env files loader.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.LoadEnv(DotEnv.Core.EnvValidationResult@)">
+            <param name="result">The result contains the errors found by the loader.</param>
+            <inheritdoc cref="M:DotEnv.Core.IEnvLoader.LoadEnv" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.LoadEnv">
+            <summary>
+            Loads an .env file based on the environment (development, test, staging or production).
+            This method will load these .env files in the following order:
+            <list type="bullet">
+            <item><c>.env.[environment].local</c> (has the highest priority).</item>
+            <item><c>.env.local</c></item>
+            <item><c>.env.[environment]</c></item>
+            <item><c>.env</c> (has the lowest priority).</item>
+            </list>
+            The <c>environment</c> is specified by the actual environment variable <c>DOTNET_ENV</c>.
+            <para>It should be noted that the default environment will be <c>development</c> or <c>dev</c> if the environment is never specified with <c>DOTNET_ENV</c>.</para>
+            </summary>
+            <inheritdoc cref="M:DotEnv.Core.IEnvLoader.Load" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.Load(DotEnv.Core.EnvValidationResult@)">
+            <param name="result">The result contains the errors found by the loader.</param>
+            <inheritdoc cref="M:DotEnv.Core.IEnvLoader.Load" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.Load">
+            <summary>
+            Loads one or more .env files. By default, it will search for a file called <c>.env</c>.
+            </summary>
+            <remarks>This method starts find the .env file in the current directory and if it does not found it, it starts find in the parent directories of the current directory.</remarks>
+            <exception cref="T:DotEnv.Core.ParserException">
+            If the parser encounters one or more errors.
+            This exception is not thrown if the <see cref="M:DotEnv.Core.IEnvLoader.IgnoreParserException" /> method is invoked.
+            </exception>
+            <exception cref="T:System.IO.FileNotFoundException">
+            If the .env files are not found.
+            This exception is only thrown if the <see cref="M:DotEnv.Core.IEnvLoader.EnableFileNotFoundException" /> method is invoked.
+            </exception>
+            <returns>An instance representing the provider of environment variables.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.SetDefaultEnvFileName(System.String)">
+            <summary>
+            Sets the default name of an .env file.
+            </summary>
+            <param name="envFileName">The default name to set.</param>
+            <exception cref="T:System.ArgumentNullException"><c>envFileName</c> is <c>null</c>.</exception>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.SetBasePath(System.String)">
+            <summary>
+            Sets the base path for the .env files.
+            </summary>
+            <param name="basePath">The base path to set.</param>
+            <exception cref="T:System.ArgumentNullException"><c>basePath</c> is <c>null</c>.</exception>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.AddEnvFiles(System.String[])">
+            <summary>
+            Adds the .env files in a collection.
+            </summary>
+            <param name="paths">The .env files paths to add.</param>
+            <exception cref="T:System.ArgumentNullException"><c>paths</c> is <c>null</c>.</exception>
+            <exception cref="T:System.ArgumentException">The length of the <c>paths</c> list is zero.</exception>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.AddEnvFile(System.String)">
+            <summary>
+            Adds an .env file in a collection.
+            </summary>
+            <param name="path">The .env file path to add.</param>
+            <exception cref="T:System.ArgumentNullException"><c>path</c> is <c>null</c>.</exception> 
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.AddEnvFile(System.String,System.Text.Encoding)">
+            <summary>
+            Adds an .env file with its encoding in a collection.
+            </summary>
+            <param name="path">The .env file path to add.</param>
+            <param name="encoding">The encoding of the .env file.</param>
+            <exception cref="T:System.ArgumentNullException"><c>path</c> is <c>null</c>.</exception> 
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.AddEnvFile(System.String,System.Text.Encoding,System.Boolean)">
+            <param name="path">The .env file path to add.</param>
+            <param name="encoding">The encoding of the .env file.</param>
+            <param name="optional">The value indicating whether the existence of the .env file is optional, or not.</param>
+            <inheritdoc cref="M:DotEnv.Core.IEnvLoader.AddEnvFile(System.String,System.Text.Encoding)" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.AddEnvFile(System.String,System.String)">
+            <summary>
+            Adds an .env file with its encoding name in a collection.
+            </summary>
+            <param name="path">The .env file path to add.</param>
+            <param name="encodingName">The encoding name of the .env file.</param>
+            <exception cref="T:System.ArgumentNullException"><c>path</c>, or <c>encodingName</c> is <c>null</c>.</exception>
+            <exception cref="T:System.ArgumentException">
+            <c>encodingName</c> is not a valid code page name or
+            is not supported by the underlying platform.
+            </exception>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.AddEnvFile(System.String,System.String,System.Boolean)">
+            <param name="path">The .env file path to add.</param>
+            <param name="encodingName">The encoding name of the .env file.</param>
+            <param name="optional">The value indicating whether the existence of the .env file is optional, or not.</param>
+            <inheritdoc cref="M:DotEnv.Core.IEnvLoader.AddEnvFile(System.String,System.String)" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.AddEnvFile(System.String,System.Boolean)">
+            <summary>
+            Adds an .env file to a collection and indicates whether the .env file can be optional, or not.
+            </summary>
+            <param name="path">The .env file path to add.</param>
+            <param name="optional">The value indicating whether the existence of the .env file is optional, or not.</param>
+            <exception cref="T:System.ArgumentNullException"><c>path</c> is <c>null</c>.</exception>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.SetEncoding(System.Text.Encoding)">
+            <summary>
+            Sets the encoding of the .env files.
+            </summary>
+            <param name="encoding">The type of encoding to set.</param>
+            <exception cref="T:System.ArgumentNullException"><c>encoding</c> is <c>null</c>.</exception> 
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.SetEncoding(System.String)">
+            <summary>
+            Sets the encoding name of the .env files.
+            </summary>
+            <param name="encodingName">The name of encoding to set.</param>
+            <exception cref="T:System.ArgumentNullException"><c>encodingName</c> is <c>null</c>.</exception>
+            <exception cref="T:System.ArgumentException">
+            <c>encodingName</c> is not a valid code page name or
+            is not supported by the underlying platform.
+            </exception>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.EnableFileNotFoundException">
+            <summary>
+            Enables <see cref="T:System.IO.FileNotFoundException" />. This method tells the loader to throw an exception when one or more .env files are not found.
+            </summary>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.SetEnvironmentName(System.String)">
+            <summary>
+            Sets the name of the environment.
+            </summary>
+            <param name="envName">The name of the environment.</param>
+            <exception cref="T:System.ArgumentNullException"><c>envName</c> is <c>null</c>.</exception>
+            <exception cref="T:System.ArgumentException">
+            <c>envName</c> is a <see cref="F:System.String.Empty" /> or consists only of white-space characters.
+            </exception>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.AllowAllEnvFilesOptional">
+            <summary>
+            Allows all .env files to be optional. This tells the loader not to raise an error in case the .env file is not found in any directory.
+            </summary>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.IgnoreParentDirectories">
+            <summary>
+            Ignores search in parent directories. This tells the loader not to search in parent directories when the .env file is not in a directory.
+            </summary>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.DisableTrimStartValues">
+            <inheritdoc cref="M:DotEnv.Core.IEnvParser.DisableTrimStartValues" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.DisableTrimEndValues">
+            <inheritdoc cref="M:DotEnv.Core.IEnvParser.DisableTrimEndValues" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.DisableTrimValues">
+            <inheritdoc cref="M:DotEnv.Core.IEnvParser.DisableTrimValues" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.DisableTrimStartKeys">
+            <inheritdoc cref="M:DotEnv.Core.IEnvParser.DisableTrimStartKeys" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.DisableTrimEndKeys">
+            <inheritdoc cref="M:DotEnv.Core.IEnvParser.DisableTrimEndKeys" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.DisableTrimKeys">
+            <inheritdoc cref="M:DotEnv.Core.IEnvParser.DisableTrimKeys" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.DisableTrimStartComments">
+            <inheritdoc cref="M:DotEnv.Core.IEnvParser.DisableTrimStartComments" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.AllowOverwriteExistingVars">
+            <inheritdoc cref="M:DotEnv.Core.IEnvParser.AllowOverwriteExistingVars" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.SetCommentChar(System.Char)">
+            <inheritdoc cref="M:DotEnv.Core.IEnvParser.SetCommentChar(System.Char)" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.SetDelimiterKeyValuePair(System.Char)">
+            <inheritdoc cref="M:DotEnv.Core.IEnvParser.SetDelimiterKeyValuePair(System.Char)" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.AllowConcatDuplicateKeys(DotEnv.Core.ConcatKeysOptions)">
+            <inheritdoc cref="M:DotEnv.Core.IEnvParser.AllowConcatDuplicateKeys(DotEnv.Core.ConcatKeysOptions)" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.IgnoreParserException">
+            <inheritdoc cref="M:DotEnv.Core.IEnvParser.IgnoreParserException" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.AvoidModifyEnvironment">
+            <inheritdoc cref="M:DotEnv.Core.IEnvParser.AvoidModifyEnvironment" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvLoader.SetEnvironmentVariablesProvider(DotEnv.Core.IEnvironmentVariablesProvider)">
+            <inheritdoc cref="M:DotEnv.Core.IEnvParser.SetEnvironmentVariablesProvider(DotEnv.Core.IEnvironmentVariablesProvider)" />
+        </member>
+        <member name="T:DotEnv.Core.ConcatKeysOptions">
+            <summary>
+            Specifies the options for concatenation of duplicate keys such as whether to concatenate at the start or end of the value.
+            </summary>
+        </member>
+        <member name="F:DotEnv.Core.ConcatKeysOptions.Start">
+            <summary>
+            This option will tell the parser to concatenate at the beginning of the value of a duplicate key.
+            </summary>
+        </member>
+        <member name="F:DotEnv.Core.ConcatKeysOptions.End">
+            <summary>
+            This option will tell the parser to concatenate at the end of the value of a duplicate key.
+            </summary>
+        </member>
+        <member name="T:DotEnv.Core.EnvParser">
+            <inheritdoc cref="T:DotEnv.Core.IEnvParser" />
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.DisableTrimStartValues">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.DisableTrimEndValues">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.DisableTrimValues">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.DisableTrimStartKeys">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.DisableTrimEndKeys">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.DisableTrimKeys">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.DisableTrimStartComments">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.AllowOverwriteExistingVars">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.SetCommentChar(System.Char)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.SetDelimiterKeyValuePair(System.Char)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.AllowConcatDuplicateKeys(DotEnv.Core.ConcatKeysOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.IgnoreParserException">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.AvoidModifyEnvironment">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.SetEnvironmentVariablesProvider(DotEnv.Core.IEnvironmentVariablesProvider)">
+            <inheritdoc />
+        </member>
+        <member name="F:DotEnv.Core.EnvParser.MaxCount">
+            <summary>
+            The maximum number of substrings to be returned by the Split method.
+            </summary>
+        </member>
+        <member name="F:DotEnv.Core.EnvParser._configuration">
+            <summary>
+            Allows access to the configuration options for the parser.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvParser.ValidationResult">
+            <summary>
+            Allows access to the errors container of the parser.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvParser.FileName">
+            <summary>
+            Allows access to the name of the file that caused an error.
+            This property is for the loader to pass data to the parser.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvParser.EnvVarsProvider">
+            <summary>
+            Allows access to the environment variables provider.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.Parse(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.Parse(System.String,DotEnv.Core.EnvValidationResult@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.CreateAndThrowParserException">
+            <summary>
+            Creates and throws an exception of type <see cref="T:DotEnv.Core.ParserException" />.
+            </summary>
+            <exception cref="T:DotEnv.Core.ParserException"></exception>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.IsComment(System.String)">
+            <summary>
+            Checks if the line is a comment.
+            </summary>
+            <param name="line">The line to test.</param>
+            <exception cref="T:System.ArgumentNullException"><c>line</c> is <c>null</c>.</exception>
+            <returns><c>true</c> if the line is a comment, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.RemoveInlineComment(System.String,System.String@)">
+            <summary>
+            Removes the inline comment.
+            </summary>
+            <param name="line">The line with the inline comment to remove.</param>
+            <param name="comment">Contains the removed comment or null if there is no comment.</param>
+            <exception cref="T:System.ArgumentNullException"><c>line</c> is <c>null</c>.</exception>
+            <returns>A string without the inline comment.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.ConcatCommentWithValue(System.String,System.String)">
+            <summary>
+            Concatenates the comment with the value.
+            </summary>
+            <param name="value">The value of a key.</param>
+            <param name="comment">The comment to concatenate with the value.</param>
+            <returns>A string with the concatenated comment.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.TrimKey(System.String)">
+            <summary>
+            Removes all leading and trailing white-space characters from the current key.
+            </summary>
+            <param name="key">The key to trim.</param>
+            <exception cref="T:System.ArgumentNullException"><c>key</c> is <c>null</c>.</exception>
+            <returns>
+            The key that remains after all white-space characters are removed from the start and end of the current key.
+            If no characters can be trimmed from the current key, the method returns the current key unchanged.
+            </returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.TrimValue(System.String)">
+            <summary>
+            Removes all leading and trailing white-space characters from the current value.
+            </summary>
+            <param name="value">The value to trim.</param>
+            <exception cref="T:System.ArgumentNullException"><c>value</c> is <c>null</c>.</exception>
+            <returns>
+            The value that remains after all white-space characters are removed from the start and end of the current value.
+            If no characters can be trimmed from the current value, the method returns the current value unchanged.
+            </returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.ExtractKey(System.String)">
+            <summary>
+            Extracts the key from the line.
+            </summary>
+            <param name="line">The line with the key-value pair.</param>
+            <exception cref="T:System.ArgumentNullException"><c>line</c> is <c>null</c>.</exception>
+            <returns>The key extracted.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.ExtractValue(System.String)">
+            <summary>
+            Extracts the value from the line.
+            </summary>
+            <param name="line">The line with the key-value pair.</param>
+            <exception cref="T:System.ArgumentNullException"><c>line</c> is <c>null</c>.</exception>
+            <returns>The value extracted.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.HasNoKeyValuePair(System.String)">
+            <summary>
+            Checks if the line has no a key-value pair.
+            </summary>
+            <param name="line">The line to test.</param>
+            <exception cref="T:System.ArgumentNullException"><c>line</c> is <c>null</c>.</exception>
+            <returns><c>true</c> if the line has no the key-value pair, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.ConcatValues(System.String,System.String)">
+            <summary>
+            Concatenates a value with the current value of a variable.
+            </summary>
+            <param name="currentValue">The current value of the variable.</param>
+            <param name="value">The value to be concatenated with the current value.</param>
+            <returns>The string with the concatenated values.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.ExpandEnvironmentVariables(System.String,System.Int32)">
+            <summary>
+            Replaces the name of each environment variable embedded in the specified string with the string equivalent of the value of the variable, then returns the resulting string.
+            </summary>
+            <param name="name">A string containing the names of zero or more environment variables.</param>
+            <param name="currentLine">The number of the current line.</param>
+            <exception cref="T:System.ArgumentNullException"><c>name</c> is <c>null</c>.</exception>
+            <returns>A string with each environment variable replaced by its value.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.IsQuoted(System.String)">
+            <summary>
+            Checks if the text is quoted with single or double quotes.
+            </summary>
+            <param name="text">The text to validate.</param>
+            <exception cref="T:System.ArgumentNullException"><c>text</c> is <c>null</c>.</exception>
+            <returns><c>true</c> if the text is quoted, or <c>false</c>.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.RemoveQuotes(System.String)">
+            <summary>
+            Removes single or double quotes.
+            </summary>
+            <param name="text">The text with quotes to remove.</param>
+            <exception cref="T:System.ArgumentNullException"><c>text</c> is <c>null</c>.</exception>
+            <returns>A string without single or double quotes.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.RemovePrefixBeforeKey(System.String,System.String)">
+            <summary>
+            Removes the prefix before the key.
+            </summary>
+            <param name="key">The key with the prefix to remove.</param>
+            <param name="prefix">The prefix name.</param>
+            <exception cref="T:System.ArgumentNullException">key or prefix is <c>null</c>.</exception>
+            <returns>A key without the prefix.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.IsMultiline(System.String)">
+            <summary>
+            Checks if the value of a key is in multi-lines.
+            </summary>
+            <param name="value">The value to validate.</param>
+            <exception cref="T:System.ArgumentNullException"><c>value</c> is <c>null</c>.</exception>
+            <returns>
+            <c>true</c> if the <c>value</c> of a key is in multi-lines, or <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.GetValuesMultilines(System.String[],System.Int32@,System.String)">
+            <summary>
+            Gets the values of several lines of a key.
+            </summary>
+            <param name="lines"></param>
+            <param name="index">Contains the index of a line.</param>
+            <param name="value">The value of a key.</param>
+            <exception cref="T:System.ArgumentNullException">lines or value is <c>null</c>.</exception>
+            <returns>
+            A string with the values separated by a new line, or <c>null</c> if the line has no end quote.
+            </returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvParser.ConvertStringEmptyToWhitespace(System.String)">
+            <summary>
+            Converts an empty string to a whitespace.
+            </summary>
+            <param name="value">The value to convert.</param>
+            <returns>A string with the converted value.</returns>
+        </member>
+        <member name="T:DotEnv.Core.EnvParserOptions">
+            <summary>
+            Represents the options for configuring various behaviors of the parser.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvParserOptions.TrimStartValues">
+            <summary>
+            A value indicating whether to remove leading white-spaces from values. Its default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvParserOptions.TrimEndValues">
+            <summary>
+            A value indicating whether to remove trailing white-spaces from values. Its default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvParserOptions.TrimStartKeys">
+            <summary>
+            A value indicating whether to remove leading white-spaces from keys. Its default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvParserOptions.TrimEndKeys">
+            <summary>
+            A value indicating whether to remove trailing white-spaces from keys. Its default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvParserOptions.TrimStartComments">
+            <summary>
+            A value indicating whether to remove leading white-spaces from comments. Its default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvParserOptions.OverwriteExistingVars">
+            <summary>
+            A value indicating whether the parser should overwrite the value of an existing variable. Its default value is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvParserOptions.CommentChar">
+            <summary>
+            A character indicating the beginning of a comment. Its default value is <c>#</c>.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvParserOptions.InlineCommentChars">
+            <summary>
+            Gets or sets the characters indicating the beginning of a inline comment 
+            that will be used as delimiter in the <see cref="M:DotEnv.Core.EnvParser.RemoveInlineComment(System.String,System.String@)" /> method.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvParserOptions.DelimiterKeyValuePair">
+            <summary>
+            A character that separates a key-value pair. Its default value is <c>=</c>.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvParserOptions.ConcatDuplicateKeys">
+            <summary>
+            A value that indicates whether duplicate keys can be concatenated. Its default value is <c>null</c>.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvParserOptions.ThrowException">
+            <summary>
+            A value indicating whether the parser should throw an exception when it encounters one or more errors. Its default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvParserOptions.EnvVars">
+            <summary>
+            Gets or sets the environment variables provider.
+            </summary>
+        </member>
+        <member name="T:DotEnv.Core.IEnvParser">
+            <summary>
+            Defines the methods that control the parser behavior.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.IEnvParser.Parse(System.String,DotEnv.Core.EnvValidationResult@)">
+            <param name="dataSource">The data source to parsing.</param>
+            <param name="result">The result contains the errors found by the parser.</param>
+            <inheritdoc cref="M:DotEnv.Core.IEnvParser.Parse(System.String)" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvParser.Parse(System.String)">
+            <summary>
+            Start the parsing to extract the key-value pair from a data source.
+            </summary>
+            <param name="dataSource">The data source to parsing.</param>
+            <exception cref="T:System.ArgumentNullException"><c>dataSource</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.ParserException">
+            If the parser encounters one or more errors.
+            This exception is not thrown if the <see cref="M:DotEnv.Core.IEnvParser.IgnoreParserException" /> method is invoked.
+            </exception>
+            <returns>An instance representing the provider of environment variables.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvParser.DisableTrimStartValues">
+            <summary>
+            Disables the trim at the start of the values.
+            This method will tell the parser not to remove leading white spaces from the values.
+            </summary>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvParser.DisableTrimEndValues">
+            <summary>
+            Disables the trim at the end of the values.
+            This method will tell the parser not to remove trailing white spaces from the values.
+            </summary>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvParser.DisableTrimValues">
+            <summary>
+            Disables the trim at the start and end of the values.
+            </summary>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvParser.DisableTrimStartKeys">
+            <summary>
+            Disables the trim at the start of the keys.
+            This method will tell the parser not to remove leading white spaces from the keys.
+            </summary>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvParser.DisableTrimEndKeys">
+            <summary>
+            Disables the trim at the end of the keys.
+            This method will tell the parser not to remove trailing white spaces from the keys.
+            </summary>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvParser.DisableTrimKeys">
+            <summary>
+            Disables the trim at the start and end of the keys.
+            </summary>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvParser.DisableTrimStartComments">
+            <summary>
+            Disables the trim at the start of the comments.
+            This method will tell the parser not to remove leading white spaces from the comments.
+            </summary>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvParser.AllowOverwriteExistingVars">
+            <summary>
+            Allows overwriting the existing variables of a specific provider (e.g., current process or a <see cref="T:System.Collections.Generic.Dictionary`2" />).
+            </summary>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvParser.SetCommentChar(System.Char)">
+            <summary>
+            Sets the character that will define the beginning of a comment.
+            </summary>
+            <param name="commentChar">The character that defines the beginning of a comment.</param>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvParser.SetDelimiterKeyValuePair(System.Char)">
+            <summary>
+            Sets the delimiter that separates an assignment of a value to a key.
+            </summary>
+            <param name="separator">The character that separates the key-value pair.</param>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvParser.AllowConcatDuplicateKeys(DotEnv.Core.ConcatKeysOptions)">
+            <summary>
+            Allows concatenating the values of the duplicate keys.
+            </summary>
+            <param name="option">The option indicates whether the concatenation is at the start or at the end of the value.</param>
+            <exception cref="T:System.ArgumentException"><c>option</c> is not one of the <see cref="T:DotEnv.Core.ConcatKeysOptions" /> values.</exception>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvParser.IgnoreParserException">
+            <summary>
+            Disables/ignores <see cref="T:DotEnv.Core.ParserException" />. This method tells the parser not to throw an exception when it encounters one or more errors.
+            </summary>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvParser.AvoidModifyEnvironment">
+            <summary>
+            Avoids modifying the environment of the current process.
+            When this method is used, the environment variables are obtained from a <see cref="T:System.Collections.Generic.Dictionary`2" /> and not from the current process.
+            </summary>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvParser.SetEnvironmentVariablesProvider(DotEnv.Core.IEnvironmentVariablesProvider)">
+            <summary>
+            Sets the environment variables provider. 
+            When this method is used, the environment variables are obtained from the custom provider.
+            </summary>
+            <param name="provider">The custom environment variables provider.</param>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="T:DotEnv.Core.ParserException">
+            <summary>
+            The exception that is thrown when the parser encounters one or more errors.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.ParserException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.ParserException" /> class.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.ParserException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.ParserException" /> class with the a specified error message.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="T:DotEnv.Core.DefaultEnvironmentProvider">
+            <summary>
+             Represents the variables provider using the environment of the current process.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.DefaultEnvironmentProvider.Item(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:DotEnv.Core.DictionaryProvider">
+            <summary>
+            Represents the variables provider using a dictionary.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.DictionaryProvider.Item(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:DotEnv.Core.EnvironmentVariablesProviderExtensions">
+            <summary>
+            Extension methods for adding <see cref="T:DotEnv.Core.IEnvironmentVariablesProvider"/>.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.EnvironmentVariablesProviderExtensions.CreateValidator(DotEnv.Core.IEnvironmentVariablesProvider)">
+            <summary>
+            Creates an instance that implements the <see cref="T:DotEnv.Core.IEnvValidator" /> interface.
+            </summary>
+            <param name="provider">The environment variables provider.</param>
+            <returns>An instance that implements the <see cref="T:DotEnv.Core.IEnvValidator" /> interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvironmentVariablesProviderExtensions.CreateReader(DotEnv.Core.IEnvironmentVariablesProvider)">
+            <summary>
+            Creates an instance that implements the <see cref="T:DotEnv.Core.IEnvReader" /> interface.
+            </summary>
+            <param name="provider">The environment variables provider.</param>
+            <returns>An instance that implements the <see cref="T:DotEnv.Core.IEnvReader" /> interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvironmentVariablesProviderExtensions.CreateBinder(DotEnv.Core.IEnvironmentVariablesProvider)">
+            <summary>
+            Creates an instance that implements the <see cref="T:DotEnv.Core.IEnvBinder" /> interface.
+            </summary>
+            <param name="provider">The environment variables provider.</param>
+            <returns>An instance that implements the <see cref="T:DotEnv.Core.IEnvBinder" /> interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvironmentVariablesProviderExtensions.ToDictionary(DotEnv.Core.IEnvironmentVariablesProvider)">
+            <summary>
+            Converts the environment variables provider to a dictionary.
+            </summary>
+            <param name="provider">The environment variables provider.</param>
+            <returns>A dictionary with the environment variables.</returns>
+        </member>
+        <member name="T:DotEnv.Core.IEnvironmentVariablesProvider">
+            <summary>
+            Represents the environment variables provider. 
+            The environment variables can be obtained from any provider (e.g., from a <see cref="T:System.Collections.Generic.Dictionary`2" /> or from the current process).
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.IEnvironmentVariablesProvider.Item(System.String)">
+            <summary>
+            Gets or sets the value of the variable.
+            </summary>
+            <param name="variable">The variable to get or set.</param>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <remarks>The property gets a <c>null</c> value in case the <c>variable</c> is not found in the provider.</remarks>
+        </member>
+        <member name="T:DotEnv.Core.EnvAccessorExtensions">
+            <summary>
+            Represents an accessor of environment variables for the <see cref="T:System.String" /> class.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.EnvAccessorExtensions.GetEnv(System.String)">
+            <summary>
+            Gets the value of an environment variable from the current process.
+            </summary>
+            <param name="variable">The name of the environment variable.</param>
+            <returns>The value of the environment variable.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set in current process.</exception>
+        </member>
+        <member name="M:DotEnv.Core.EnvAccessorExtensions.GetEnv``1(System.String)">
+            <summary>
+            Gets the value of an environment variable in a specific format.
+            </summary>
+            <typeparam name="TConversionType">The type of object to return.</typeparam>
+            <param name="variable">The name of the environment variable.</param>
+            <returns>An value whose type is <typeparamref name="TConversionType" />.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set in current process.</exception>
+        </member>
+        <member name="T:DotEnv.Core.EnvReader">
+            <inheritdoc cref="T:DotEnv.Core.IEnvReader" />
+        </member>
+        <member name="P:DotEnv.Core.EnvReader.Instance">
+            <summary>
+            Gets an instance of type <see cref="T:DotEnv.Core.EnvReader" />.
+            </summary>
+            <remarks>This method is thread-safe.</remarks>
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.EnvReader" /> class.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.#ctor(DotEnv.Core.IEnvironmentVariablesProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.EnvReader" /> class with environment variables provider.
+            </summary>
+            <param name="provider">The environment variables provider.</param>
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.HasValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.GetEnumerator">
+            <summary>
+            Returns an enumerator that iterates through the variables.
+            </summary>
+            <returns>An enumerator that can be used to iterate through the variables.</returns>
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc cref="M:DotEnv.Core.EnvReader.GetEnumerator" />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.EnvString(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.EnvBool(System.String,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.EnvByte(System.String,System.Byte)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.EnvSByte(System.String,System.SByte)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.EnvChar(System.String,System.Char)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.EnvInt(System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.EnvUInt(System.String,System.UInt32)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.EnvLong(System.String,System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.EnvULong(System.String,System.UInt64)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.EnvShort(System.String,System.Int16)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.EnvUShort(System.String,System.UInt16)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.EnvDecimal(System.String,System.Decimal)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.EnvDouble(System.String,System.Double)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.EnvFloat(System.String,System.Single)">
+            <inheritdoc />
+        </member>
+        <member name="P:DotEnv.Core.EnvReader.Item(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.GetStringValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.GetBoolValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.GetByteValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.GetSByteValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.GetCharValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.GetIntValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.GetUIntValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.GetLongValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.GetULongValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.GetShortValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.GetUShortValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.GetDecimalValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.GetDoubleValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.GetFloatValue(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.TryGetStringValue(System.String,System.String@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.TryGetBoolValue(System.String,System.Boolean@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.TryGetByteValue(System.String,System.Byte@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.TryGetSByteValue(System.String,System.SByte@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.TryGetCharValue(System.String,System.Char@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.TryGetIntValue(System.String,System.Int32@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.TryGetUIntValue(System.String,System.UInt32@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.TryGetLongValue(System.String,System.Int64@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.TryGetULongValue(System.String,System.UInt64@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.TryGetShortValue(System.String,System.Int16@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.TryGetUShortValue(System.String,System.UInt16@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.TryGetDecimalValue(System.String,System.Decimal@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.TryGetDoubleValue(System.String,System.Double@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvReader.TryGetFloatValue(System.String,System.Single@)">
+            <inheritdoc />
+        </member>
+        <member name="T:DotEnv.Core.IEnvReader">
+            <summary>
+            Defines the methods used to read environment variables from a specific <see cref="T:DotEnv.Core.IEnvironmentVariablesProvider">provider</see>.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.HasValue(System.String)">
+            <summary>
+            Checks if the variable has a value.
+            </summary>
+            <param name="variable">The variable to validate.</param>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <returns><c>true</c> if the variable has a value, otherwise <c>false</c>.</returns>
+        </member>
+        <member name="P:DotEnv.Core.IEnvReader.Item(System.String)">
+            <summary>
+            Gets the value of a variable in <c>string</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to get.</param>
+            <value>The value of the variable in <c>string</c> format.</value>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.GetStringValue(System.String)">
+            <summary>
+            Gets the value of a variable in <c>string</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to get.</param>
+            <returns>A value of the variable in <c>string</c> format.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.GetBoolValue(System.String)">
+            <summary>
+            Gets the value of a variable in <c>bool</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to get.</param>
+            <returns>A value of the variable in <c>bool</c> format.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>bool</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.GetByteValue(System.String)">
+            <summary>
+            Gets the value of a variable in <c>byte</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to get.</param>
+            <returns>A value of the variable in <c>byte</c> format.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>byte</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.GetSByteValue(System.String)">
+            <summary>
+            Gets the value of a variable in <c>sbyte</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to get.</param>
+            <returns>A value of the variable in <c>sbyte</c> format.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>sbyte</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.GetCharValue(System.String)">
+            <summary>
+            Gets the value of a variable in <c>char</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to get.</param>
+            <returns>A value of the variable in <c>char</c> format.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>char</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.GetIntValue(System.String)">
+            <summary>
+            Gets the value of a variable in <c>int</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to get.</param>
+            <returns>A value of the variable in <c>int</c> format.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>int</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.GetUIntValue(System.String)">
+            <summary>
+            Gets the value of a variable in <c>uint</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to get.</param>
+            <returns>A value of the variable in <c>uint</c> format.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>uint</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.GetLongValue(System.String)">
+            <summary>
+            Gets the value of a variable in <c>long</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to get.</param>
+            <returns>A value of the variable in <c>long</c> format.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>long</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.GetULongValue(System.String)">
+            <summary>
+            Gets the value of a variable in <c>ulong</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to get.</param>
+            <returns>A value of the variable in <c>ulong</c> format.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>ulong</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.GetShortValue(System.String)">
+            <summary>
+            Gets the value of a variable in <c>short</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to get.</param>
+            <returns>A value of the variable in <c>short</c> format.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>short</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.GetUShortValue(System.String)">
+            <summary>
+            Gets the value of a variable in <c>ushort</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to get.</param>
+            <returns>A value of the variable in <c>ushort</c> format.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>ushort</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.GetDecimalValue(System.String)">
+            <summary>
+            Gets the value of a variable in <c>decimal</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to get.</param>
+            <returns>A value of the variable in <c>decimal</c> format.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>decimal</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.GetDoubleValue(System.String)">
+            <summary>
+            Gets the value of a variable in <c>double</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to get.</param>
+            <returns>A value of the variable in <c>double</c> format.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>double</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.GetFloatValue(System.String)">
+            <summary>
+            Gets the value of a variable in <c>float</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to get.</param>
+            <returns>A value of the variable in <c>float</c> format.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:DotEnv.Core.VariableNotSetException"><c>variable</c> is not set.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>float</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.TryGetStringValue(System.String,System.String@)">
+            <summary>
+            Try to retrieve the value of a variable in <c>string</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to try retrieve.</param>
+            <param name="value">The string value retrieved or <c>null</c>.</param>
+            <returns><c>true</c> if the variable is set, otherwise <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.TryGetBoolValue(System.String,System.Boolean@)">
+            <summary>
+            Try to retrieve the value of a variable in <c>bool</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to try retrieve.</param>
+            <param name="value">The bool value retrieved or <c>false</c>.</param>
+            <returns><c>true</c> if the variable is set, otherwise <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>bool</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.TryGetByteValue(System.String,System.Byte@)">
+            <summary>
+            Try to retrieve the value of a variable in <c>byte</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to try retrieve.</param>
+            <param name="value">The byte value retrieved or <c>0</c>.</param>
+            <returns><c>true</c> if the variable is set, otherwise <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>byte</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.TryGetSByteValue(System.String,System.SByte@)">
+            <summary>
+            Try to retrieve the value of a variable in <c>sbyte</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to try retrieve.</param>
+            <param name="value">The sbyte value retrieved or <c>0</c>.</param>
+            <returns><c>true</c> if the variable is set, otherwise <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>sbyte</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.TryGetCharValue(System.String,System.Char@)">
+            <summary>
+            Try to retrieve the value of a variable in <c>char</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to try retrieve.</param>
+            <param name="value">The char value retrieved or <c>0</c>.</param>
+            <returns><c>true</c> if the variable is set, otherwise <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>char</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.TryGetIntValue(System.String,System.Int32@)">
+            <summary>
+            Try to retrieve the value of a variable in <c>int</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to try retrieve.</param>
+            <param name="value">The int value retrieved or <c>0</c>.</param>
+            <returns><c>true</c> if the variable is set, otherwise <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>int</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.TryGetUIntValue(System.String,System.UInt32@)">
+            <summary>
+            Try to retrieve the value of a variable in <c>uint</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to try retrieve.</param>
+            <param name="value">The uint value retrieved or <c>0</c>.</param>
+            <returns><c>true</c> if the variable is set, otherwise <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>uint</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.TryGetLongValue(System.String,System.Int64@)">
+            <summary>
+            Try to retrieve the value of a variable in <c>long</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to try retrieve.</param>
+            <param name="value">The long value retrieved or <c>0</c>.</param>
+            <returns><c>true</c> if the variable is set, otherwise <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>long</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.TryGetULongValue(System.String,System.UInt64@)">
+            <summary>
+            Try to retrieve the value of a variable in <c>ulong</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to try retrieve.</param>
+            <param name="value">The ulong value retrieved or <c>0</c>.</param>
+            <returns><c>true</c> if the variable is set, otherwise <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>ulong</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.TryGetShortValue(System.String,System.Int16@)">
+            <summary>
+            Try to retrieve the value of a variable in <c>short</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to try retrieve.</param>
+            <param name="value">The short value retrieved or <c>0</c>.</param>
+            <returns><c>true</c> if the variable is set, otherwise <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>short</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.TryGetUShortValue(System.String,System.UInt16@)">
+            <summary>
+            Try to retrieve the value of a variable in <c>ushort</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to try retrieve.</param>
+            <param name="value">The ushort value retrieved or <c>0</c>.</param>
+            <returns><c>true</c> if the variable is set, otherwise <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>ushort</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.TryGetDecimalValue(System.String,System.Decimal@)">
+            <summary>
+            Try to retrieve the value of a variable in <c>decimal</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to try retrieve.</param>
+            <param name="value">The decimal value retrieved or <c>0.0</c>.</param>
+            <returns><c>true</c> if the variable is set, otherwise <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>decimal</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.TryGetDoubleValue(System.String,System.Double@)">
+            <summary>
+            Try to retrieve the value of a variable in <c>double</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to try retrieve.</param>
+            <param name="value">The double value retrieved or <c>0.0</c>.</param>
+            <returns><c>true</c> if the variable is set, otherwise <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>double</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.TryGetFloatValue(System.String,System.Single@)">
+            <summary>
+            Try to retrieve the value of a variable in <c>float</c> format.
+            </summary>
+            <param name="variable">The variable name of the value to try retrieve.</param>
+            <param name="value">The float value retrieved or <c>0.0</c>.</param>
+            <returns><c>true</c> if the variable is set, otherwise <c>false</c>.</returns>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>float</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.EnvString(System.String,System.String)">
+            <summary>
+            Gets the value of a variable in <c>string</c> format.
+            </summary>
+            <param name="variable">	Environment variable name.</param>
+            <param name="defaultValue">A default value in case the variable is not set.</param>
+            <returns>A value of the environment variable in <c>string</c> format.</returns>
+            <remarks>If the environment variable is not set, the method will return the default value.</remarks>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.EnvBool(System.String,System.Boolean)">
+            <summary>
+            Gets the value of a variable in <c>bool</c> format.
+            </summary>
+            <param name="variable">	Environment variable name.</param>
+            <param name="defaultValue">A default value in case the variable is not set.</param>
+            <returns>A value of the environment variable in <c>bool</c> format.</returns>
+            <remarks>If the environment variable is not set, the method will return the default value.</remarks>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>bool</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.EnvByte(System.String,System.Byte)">
+            <summary>
+            Gets the value of a variable in <c>byte</c> format.
+            </summary>
+            <param name="variable">	Environment variable name.</param>
+            <param name="defaultValue">A default value in case the variable is not set.</param>
+            <returns>A value of the environment variable in <c>byte</c> format.</returns>
+            <remarks>If the environment variable is not set, the method will return the default value.</remarks>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>byte</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.EnvSByte(System.String,System.SByte)">
+            <summary>
+            Gets the value of a variable in <c>sbyte</c> format.
+            </summary>
+            <param name="variable">	Environment variable name.</param>
+            <param name="defaultValue">A default value in case the variable is not set.</param>
+            <returns>A value of the environment variable in <c>sbyte</c> format.</returns>
+            <remarks>If the environment variable is not set, the method will return the default value.</remarks>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>sbyte</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.EnvChar(System.String,System.Char)">
+            <summary>
+            Gets the value of a variable in <c>char</c> format.
+            </summary>
+            <param name="variable">	Environment variable name.</param>
+            <param name="defaultValue">A default value in case the variable is not set.</param>
+            <returns>A value of the environment variable in <c>char</c> format.</returns>
+            <remarks>If the environment variable is not set, the method will return the default value.</remarks>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>char</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.EnvInt(System.String,System.Int32)">
+            <summary>
+            Gets the value of a variable in <c>int</c> format.
+            </summary>
+            <param name="variable">	Environment variable name.</param>
+            <param name="defaultValue">A default value in case the variable is not set.</param>
+            <returns>A value of the environment variable in <c>int</c> format.</returns>
+            <remarks>If the environment variable is not set, the method will return the default value.</remarks>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>int</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.EnvUInt(System.String,System.UInt32)">
+            <summary>
+            Gets the value of a variable in <c>uint</c> format.
+            </summary>
+            <param name="variable">	Environment variable name.</param>
+            <param name="defaultValue">A default value in case the variable is not set.</param>
+            <returns>A value of the environment variable in <c>uint</c> format.</returns>
+            <remarks>If the environment variable is not set, the method will return the default value.</remarks>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>uint</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.EnvLong(System.String,System.Int64)">
+            <summary>
+            Gets the value of a variable in <c>long</c> format.
+            </summary>
+            <param name="variable">	Environment variable name.</param>
+            <param name="defaultValue">A default value in case the variable is not set.</param>
+            <returns>A value of the environment variable in <c>long</c> format.</returns>
+            <remarks>If the environment variable is not set, the method will return the default value.</remarks>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>long</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.EnvULong(System.String,System.UInt64)">
+            <summary>
+            Gets the value of a variable in <c>ulong</c> format.
+            </summary>
+            <param name="variable">	Environment variable name.</param>
+            <param name="defaultValue">A default value in case the variable is not set.</param>
+            <returns>A value of the environment variable in <c>ulong</c> format.</returns>
+            <remarks>If the environment variable is not set, the method will return the default value.</remarks>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>ulong</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.EnvShort(System.String,System.Int16)">
+            <summary>
+            Gets the value of a variable in <c>short</c> format.
+            </summary>
+            <param name="variable">	Environment variable name.</param>
+            <param name="defaultValue">A default value in case the variable is not set.</param>
+            <returns>A value of the environment variable in <c>short</c> format.</returns>
+            <remarks>If the environment variable is not set, the method will return the default value.</remarks>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>short</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.EnvUShort(System.String,System.UInt16)">
+            <summary>
+            Gets the value of a variable in <c>ushort</c> format.
+            </summary>
+            <param name="variable">	Environment variable name.</param>
+            <param name="defaultValue">A default value in case the variable is not set.</param>
+            <returns>A value of the environment variable in <c>ushort</c> format.</returns>
+            <remarks>If the environment variable is not set, the method will return the default value.</remarks>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>ushort</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.EnvDecimal(System.String,System.Decimal)">
+            <summary>
+            Gets the value of a variable in <c>decimal</c> format.
+            </summary>
+            <param name="variable">	Environment variable name.</param>
+            <param name="defaultValue">A default value in case the variable is not set.</param>
+            <returns>A value of the environment variable in <c>decimal</c> format.</returns>
+            <remarks>If the environment variable is not set, the method will return the default value.</remarks>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>decimal</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.EnvDouble(System.String,System.Double)">
+            <summary>
+            Gets the value of a variable in <c>double</c> format.
+            </summary>
+            <param name="variable">	Environment variable name.</param>
+            <param name="defaultValue">A default value in case the variable is not set.</param>
+            <returns>A value of the environment variable in <c>double</c> format.</returns>
+            <remarks>If the environment variable is not set, the method will return the default value.</remarks>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>double</c> format.</exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvReader.EnvFloat(System.String,System.Single)">
+            <summary>
+            Gets the value of a variable in <c>float</c> format.
+            </summary>
+            <param name="variable">	Environment variable name.</param>
+            <param name="defaultValue">A default value in case the variable is not set.</param>
+            <returns>A value of the environment variable in <c>float</c> format.</returns>
+            <remarks>If the environment variable is not set, the method will return the default value.</remarks>
+            <exception cref="T:System.ArgumentNullException"><c>variable</c> is <c>null</c>.</exception>
+            <exception cref="T:System.FormatException"><c>value</c> is not in <c>float</c> format.</exception>
+        </member>
+        <member name="T:DotEnv.Core.VariableNotSetException">
+            <summary>
+            The exception that is thrown when the environment variable is not set to a specific provider (e.g., current process or a <see cref="T:System.Collections.Generic.Dictionary`2" />).
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.VariableNotSetException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.VariableNotSetException" /> class.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.VariableNotSetException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.VariableNotSetException" /> class with the a specified error message.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+        <member name="M:DotEnv.Core.VariableNotSetException.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.VariableNotSetException" /> class with the a specified error message, and the parameter name.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+            <param name="paramName">The parameter name that caused the exception.</param>
+        </member>
+        <member name="T:DotEnv.Core.EnvValidator">
+            <inheritdoc cref="T:DotEnv.Core.IEnvValidator" />
+        </member>
+        <member name="F:DotEnv.Core.EnvValidator._configuration">
+            <summary>
+            Allows access to the configuration options for the validator.
+            </summary>
+        </member>
+        <member name="F:DotEnv.Core.EnvValidator._validationResult">
+            <summary>
+            Allows access to the errors container of the validator.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.EnvValidator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.EnvValidator" /> class.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.EnvValidator.#ctor(DotEnv.Core.IEnvironmentVariablesProvider)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.EnvValidator" /> class with environment variables provider.
+            </summary>
+            <param name="provider">The environment variables provider.</param>
+        </member>
+        <member name="M:DotEnv.Core.EnvValidator.Validate">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvValidator.Validate(DotEnv.Core.EnvValidationResult@)">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvValidator.SetRequiredKeys(System.String[])">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvValidator.IgnoreException">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvValidator.SetRequiredKeys``1">
+            <inheritdoc />
+        </member>
+        <member name="M:DotEnv.Core.EnvValidator.SetRequiredKeys(System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="T:DotEnv.Core.EnvValidatorOptions">
+            <summary>
+            Represents the options for configuring various behaviors of the validator.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvValidatorOptions.ThrowException">
+            <summary>
+            A value indicating whether the validator should throw an exception when it encounters one or more errors. Its default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvValidatorOptions.RequiredKeys">
+            <summary>
+            Gets or sets the collection of required keys.
+            </summary>
+        </member>
+        <member name="P:DotEnv.Core.EnvValidatorOptions.EnvVars">
+            <summary>
+            Gets or sets the environment variables provider.
+            </summary>
+        </member>
+        <member name="T:DotEnv.Core.IEnvValidator">
+            <summary>
+            Represents the validator of the required keys.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.IEnvValidator.Validate(DotEnv.Core.EnvValidationResult@)">
+            <param name="result">The result contains the errors found by the validator.</param>
+            <inheritdoc cref="M:DotEnv.Core.IEnvValidator.Validate" />
+        </member>
+        <member name="M:DotEnv.Core.IEnvValidator.Validate">
+            <summary>
+            Validates whether the required keys are present in the application.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The required keys are not specified with the <c>SetRequiredKeys</c> method.</exception>
+            <exception cref="T:DotEnv.Core.RequiredKeysNotPresentException">
+            If the required keys are not present in the application.
+            This exception is not thrown if the <see cref="M:DotEnv.Core.IEnvValidator.IgnoreException" /> method is invoked.
+            </exception>
+        </member>
+        <member name="M:DotEnv.Core.IEnvValidator.SetRequiredKeys(System.String[])">
+            <summary>
+            Sets the required keys by means of a string collection.
+            </summary>
+            <param name="keys">The required keys to set.</param>
+            <exception cref="T:System.ArgumentNullException"><c>keys</c> is <c>null</c>.</exception>
+            <exception cref="T:System.ArgumentException">The length of the <c>keys</c> list is zero.</exception>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvValidator.SetRequiredKeys``1">
+            <summary>
+            Sets the required keys by means of the properties of a class or struct.
+            </summary>
+            <typeparam name="TKeys">The type with the required keys.</typeparam>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvValidator.SetRequiredKeys(System.Type)">
+            <summary>
+            Sets the required keys by means of the properties of a class or struct.
+            </summary>
+            <param name="keysType">The type with the required keys.</param>
+            <exception cref="T:System.ArgumentNullException"><c>keysType</c> is <c>null</c>.</exception>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="M:DotEnv.Core.IEnvValidator.IgnoreException">
+            <summary>
+            Disables/ignores <see cref="T:DotEnv.Core.RequiredKeysNotPresentException" />. This method tells the validator not to throw an exception when it encounters one or more errors.
+            </summary>
+            <returns>An instance implementing the fluent interface.</returns>
+        </member>
+        <member name="T:DotEnv.Core.RequiredKeysNotPresentException">
+            <summary>
+            The exception that is thrown when the required keys are not present in the application.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.RequiredKeysNotPresentException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.RequiredKeysNotPresentException" /> class.
+            </summary>
+        </member>
+        <member name="M:DotEnv.Core.RequiredKeysNotPresentException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DotEnv.Core.RequiredKeysNotPresentException" /> class with the a specified error message.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+        </member>
+    </members>
+</doc>
