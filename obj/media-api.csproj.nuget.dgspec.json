@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/home/abrunker/personal/media-api/media-api.csproj": {}
+    "C:\\Users\\andre\\personal\\media-api\\media-api.csproj": {}
   },
   "projects": {
-    "/home/abrunker/personal/media-api/media-api.csproj": {
+    "C:\\Users\\andre\\personal\\media-api\\media-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/abrunker/personal/media-api/media-api.csproj",
+        "projectUniqueName": "C:\\Users\\andre\\personal\\media-api\\media-api.csproj",
         "projectName": "media-api",
-        "projectPath": "/home/abrunker/personal/media-api/media-api.csproj",
-        "packagesPath": "/home/abrunker/.nuget/packages/",
-        "outputPath": "/home/abrunker/personal/media-api/obj/",
+        "projectPath": "C:\\Users\\andre\\personal\\media-api\\media-api.csproj",
+        "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\andre\\personal\\media-api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/abrunker/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\andre\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -32,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -41,6 +48,14 @@
             "DotEnv.Core": {
               "target": "Package",
               "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -66,7 +81,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.103/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
