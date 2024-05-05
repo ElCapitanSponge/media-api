@@ -2,6 +2,8 @@ using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
 using DotEnv.Core;
 using Newtonsoft.Json;
+using System.Text.Json;
+using media_api.Models;
 
 namespace media_api.Controllers;
 
@@ -50,7 +52,9 @@ public class PlexController : Controller
 			if (response.IsSuccessStatusCode)
 			{
 				var content = await response.Content.ReadAsStringAsync();
-				return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
+				var json = JsonConvert.SerializeObject(content, Formatting.Indented);
+				Console.WriteLine(json);
+				return Ok(json);
 			}
 			else
 			{
