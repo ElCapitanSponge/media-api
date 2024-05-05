@@ -38,13 +38,64 @@ public class PlexController : Controller
 	 * https://www.plexopedia.com/plex-media-server/api/
 	 */
 
-	[HttpGet("/plex/libraries")]
-	public async Task<IActionResult> Lbraries()
+	[HttpGet("/plex/accounts")]
+	public async Task<IActionResult> GetAccounts()
 	{
 		try
 		{
 			var client = this.Plex_configure();
-			var response = await client.GetAsync($"{this.PlexUrl()}/library/sections");
+			var endPoint = $"{this.PlexUrl()}/accounts";
+			var response = await client.GetAsync(endPoint);
+
+			if (response.IsSuccessStatusCode)
+			{
+				var content = await response.Content.ReadAsStringAsync();
+				return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
+			}
+			else
+			{
+				return BadRequest("Error in retrieving the plex accounts!");
+			}
+		}
+		catch (Exception e)
+		{
+			return StatusCode(500, $"ERROR: {e.Message}");
+		}
+	}
+
+	[HttpGet("/plex/account/{AccountId}")]
+	public async Task<IActionResult> GetAccount(int AccountId)
+	{
+		try
+		{
+			var client = this.Plex_configure();
+			var endPoint = $"{this.PlexUrl()}/accounts/{AccountId}";
+			var response = await client.GetAsync(endPoint);
+
+			if (response.IsSuccessStatusCode)
+			{
+				var content = await response.Content.ReadAsStringAsync();
+				return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
+			}
+			else
+			{
+				return BadRequest($"Error in retrieving accouint details for Account ID: {AccountId}");
+			}
+		}
+		catch (Exception e)
+		{
+			return StatusCode(500, $"ERROR: {e.Message}");
+		}
+	}
+
+	[HttpGet("/plex/libraries")]
+	public async Task<IActionResult> GetLbraries()
+	{
+		try
+		{
+			var client = this.Plex_configure();
+			var endPoint = $"{this.PlexUrl()}/library/sections";
+			var response = await client.GetAsync(endPoint);
 
 			if (response.IsSuccessStatusCode)
 			{
@@ -87,8 +138,8 @@ public class PlexController : Controller
 		}
 	}
 
-	[HttpGet("/plex/movies/{LibraryId}/recent_release")]
-	public async Task<IActionResult> ResentMovieRelease(int LibraryId)
+	[HttpGet("/plex/movies/{LibraryId}/recently/released")]
+	public async Task<IActionResult> ResentMovieReleased(int LibraryId)
 	{
 		try
 		{
@@ -103,7 +154,32 @@ public class PlexController : Controller
 			}
 			else
 			{
-				return BadRequest($"Error retrieving recently release movies for library id: {LibraryId}");
+				return BadRequest($"Error retrieving recently released movies for library id: {LibraryId}");
+			}
+		}
+		catch (Exception e)
+		{
+			return StatusCode(500, $"Error: {e.Message}");
+		}
+	}
+
+	[HttpGet("/plex/movies/{LibraryId}/recently/added")]
+	public async Task<IActionResult> ResentMovieAdded(int LibraryId)
+	{
+		try
+		{
+			var client = this.Plex_configure();
+			var endPoint = $"{this.PlexUrl()}/library/sections/{LibraryId}/recentlyAdded";
+			var response = await client.GetAsync(endPoint);
+
+			if (response.IsSuccessStatusCode)
+			{
+				var content = await response.Content.ReadAsStringAsync();
+				return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
+			}
+			else
+			{
+				return BadRequest($"Error retrieving recently added movies for library id: {LibraryId}");
 			}
 		}
 		catch (Exception e)
@@ -129,6 +205,83 @@ public class PlexController : Controller
 			else
 			{
 				return BadRequest($"Failed to retrieve information for Movie ID: {MovieId}");
+			}
+		}
+		catch (Exception e)
+		{
+			return StatusCode(500, $"Error: {e.Message}");
+		}
+	}
+
+	[HttpGet("/plex/image/poster/{FullPath}")]
+	public async Task<IActionResult> GetPoster(string FullPath)
+	{
+		try
+		{
+			var client = this.Plex_configure();
+			var endPoint = $"{this.PlexUrl()}/{FullPath}";
+			var response = await client.GetAsync(endPoint);
+
+			if (response.IsSuccessStatusCode)
+			{
+				var content = await response.Content.ReadAsByteArrayAsync();
+				Console.WriteLine(content);
+				return Ok(content);
+			}
+			else
+			{
+				return BadRequest($"Failed to retrieve the poster located at: {FullPath}");
+			}
+		}
+		catch (Exception e)
+		{
+			return StatusCode(500, $"Error: {e.Message}");
+		}
+	}
+
+	[HttpGet("/plex/image/background/{FullPath}")]
+	public async Task<IActionResult> GetBackground(string FullPath)
+	{
+		try
+		{
+			var client = this.Plex_configure();
+			var endPoint = $"{this.PlexUrl()}/{FullPath}";
+			var response = await client.GetAsync(endPoint);
+
+			if (response.IsSuccessStatusCode)
+			{
+				var content = await response.Content.ReadAsByteArrayAsync();
+				Console.WriteLine(content);
+				return Ok(content);
+			}
+			else
+			{
+				return BadRequest($"Failed to retrieve the background located at: {FullPath}");
+			}
+		}
+		catch (Exception e)
+		{
+			return StatusCode(500, $"Error: {e.Message}");
+		}
+	}
+
+	[HttpGet("/plex/show/{ShowId}/seasons")]
+	public async Task<IActionResult> GetShowSeasons(int ShowId)
+	{
+		try
+		{
+			var client = this.Plex_configure();
+			var endPoint = $"{this.PlexUrl()}/library/metadata/{ShowId}/children";
+			var response = await client.GetAsync(endPoint);
+
+			if (response.IsSuccessStatusCode)
+			{
+				var content = await response.Content.ReadAsStringAsync();
+				return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
+			}
+			else
+			{
+				return BadRequest($"Failed to retrieve the seasons for Show ID: {ShowId}");
 			}
 		}
 		catch (Exception e)
