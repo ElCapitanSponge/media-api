@@ -1,20 +1,29 @@
 namespace media_api.Models;
 
-public class AccountsResponse
+public class CoreWrapper
 {
-	public int size { get; set; }
-	public string identifier { get; set; }
-	public Account[] Account { get; set; }
+	public required int size { get; set; }
+	public required string identifier { get; set; }
+}
+
+
+public class AccountsWrapper : CoreWrapper
+{
+	public required Account[] Account { get; set; }
+}
+
+public class AccountsResponse {
+	public required AccountsWrapper MediaContainer { get; set; }
 }
 
 public class Account
 {
-	public int id { get; set; }
-	public string key { get; set; }
-	public string name { get; set; }
-	public string defaultAudioLanguage { get; set; }
-	public bool autoSelectAudio { get; set; }
-	public string defaultSubtitleLanguage { get; set; }
-	public int subtitleMode { get; set; }
-	public string thumb { get; set; }
+	public required int id { get; set; }
+	public required string key { get; set; }
+	public required string name { get; set; }
+	public required string defaultAudioLanguage { get; set; }
+	public required bool autoSelectAudio { get; set; }
+	public required string defaultSubtitleLanguage { get; set; }
+	public required int subtitleMode { get; set; }
+	public required string thumb { get; set; }
 }
