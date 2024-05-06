@@ -77,7 +77,8 @@ public class PlexController : Controller
 			if (response.IsSuccessStatusCode)
 			{
 				var content = await response.Content.ReadAsStringAsync();
-				return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
+				var json = JsonConvert.DeserializeObject<AccountsResponse>(content);
+				return Ok(json);
 			}
 			else
 			{
@@ -102,7 +103,8 @@ public class PlexController : Controller
 			if (response.IsSuccessStatusCode)
 			{
 				var content = await response.Content.ReadAsStringAsync();
-				return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
+				var json = JsonConvert.DeserializeObject<LibrariesResponse>(content);
+				return Ok(json);
 			}
 			else
 			{
@@ -115,9 +117,10 @@ public class PlexController : Controller
 		}
 	}
 
-	[HttpGet("/plex/library/{LibraryId}")]
-	public async Task<IActionResult> Library(int LibraryId)
+	[HttpGet("/plex/movies/{LibraryId}")]
+	public async Task<IActionResult> MovieLibrary(int LibraryId)
 	{
+		// TODO: Add check to see if library id is for movies
 		try
 		{
 			var client = this.Plex_configure();
@@ -128,6 +131,9 @@ public class PlexController : Controller
 			{
 				var content = await response.Content.ReadAsStringAsync();
 				return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
+
+				/* var json = JsonConvert.DeserializeObject<LibraryResponse>(content); */
+				/* return Ok(json); */
 			}
 			else
 			{
@@ -143,6 +149,7 @@ public class PlexController : Controller
 	[HttpGet("/plex/movies/{LibraryId}/recently/released")]
 	public async Task<IActionResult> ResentMovieReleased(int LibraryId)
 	{
+		// TODO: Add check to see if library id is for movies
 		try
 		{
 			var client = this.Plex_configure();
@@ -168,6 +175,7 @@ public class PlexController : Controller
 	[HttpGet("/plex/movies/{LibraryId}/recently/added")]
 	public async Task<IActionResult> ResentMovieAdded(int LibraryId)
 	{
+		// TODO: Add check to see if library id is for movies
 		try
 		{
 			var client = this.Plex_configure();
@@ -190,7 +198,7 @@ public class PlexController : Controller
 		}
 	}
 
-	[HttpGet("/plex/movies/{MovieId}")]
+	[HttpGet("/plex/movie/{MovieId}")]
 	public async Task<IActionResult> GetMovie(int MovieId)
 	{
 		try
@@ -259,6 +267,35 @@ public class PlexController : Controller
 			else
 			{
 				return BadRequest($"Failed to retrieve the background located at: {FullPath}");
+			}
+		}
+		catch (Exception e)
+		{
+			return StatusCode(500, $"Error: {e.Message}");
+		}
+	}
+
+	[HttpGet("/plex/shows/{LibraryId}")]
+	public async Task<IActionResult> ShowLibrary(int LibraryId)
+	{
+		// TODO: Add check to see if library id is for shows
+		try
+		{
+			var client = this.Plex_configure();
+			var endPoint = $"{this.PlexUrl()}/library/sections/{LibraryId}/all";
+			var response = await client.GetAsync(endPoint);
+
+			if (response.IsSuccessStatusCode)
+			{
+				var content = await response.Content.ReadAsStringAsync();
+				return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
+
+				/* var json = JsonConvert.DeserializeObject<LibraryResponse>(content); */
+				/* return Ok(json); */
+			}
+			else
+			{
+				return BadRequest($"Error retrieving content for library id: {LibraryId}");
 			}
 		}
 		catch (Exception e)
