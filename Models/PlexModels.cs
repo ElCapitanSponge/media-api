@@ -1,5 +1,12 @@
 namespace media_api.Models;
 
+// INFO: String like enums
+public static class LibraryTypes
+{
+	public static readonly string MOVIE = "movie";
+	public static readonly string SHOW = "show";
+}
+
 // INFO: General
 public class CoreWrapper
 {
