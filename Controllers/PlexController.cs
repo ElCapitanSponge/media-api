@@ -34,6 +34,12 @@ public class PlexController : Controller
 		return $"http://{this.reader["PLEX_ADDRESS"]}:{this.reader["PLEX_PORT"]}";
 	}
 
+	private bool isLibraryType(string LibraryType, int LibraryId)
+	{
+		// TODO: Add check to see if library id is for the desired type
+		return false;
+	}
+
 	/**
 	 * The following api endpoints are extrapolated from:
 	 * https://www.plexopedia.com/plex-media-server/api/
