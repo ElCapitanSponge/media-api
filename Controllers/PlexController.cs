@@ -35,7 +35,7 @@ public class PlexController : Controller
 	}
 
 	/**
-	 * The following api enpoints are extrapolated from:
+	 * The following api endpoints are extrapolated from:
 	 * https://www.plexopedia.com/plex-media-server/api/
 	 */
 
