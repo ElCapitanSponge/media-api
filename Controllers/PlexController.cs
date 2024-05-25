@@ -8,6 +8,8 @@ namespace media_api.Controllers;
 [Route("[controller]")]
 public class PlexController : PlexCoreController
 {
+	# region Methods
+
 	public PlexController()
 	{
 	}
@@ -17,23 +19,8 @@ public class PlexController : PlexCoreController
 	 * https://www.plexopedia.com/plex-media-server/api/
 	 */
 
-	[HttpGet("/plex/accounts")]
-	public async Task<IActionResult> GetAccounts()
-	{
-		try
-		{
-			string content = await this.PlexRequest("/accounts");
-			AccountsResponse? json = JsonConvert.DeserializeObject<AccountsResponse>(content);
-			return Ok(json);
-		}
-		catch (Exception e)
-		{
-			return StatusCode(500, $"ERROR: {e.Message}");
-		}
-	}
-
 	[HttpGet("/plex/account/{AccountId}")]
-	public async Task<IActionResult> GetAccount(int AccountId)
+	public async Task<IActionResult> Account(int AccountId)
 	{
 		try
 		{
@@ -47,8 +34,38 @@ public class PlexController : PlexCoreController
 		}
 	}
 
+	[HttpGet("/plex/accounts")]
+	public async Task<IActionResult> Accounts()
+	{
+		try
+		{
+			string content = await this.PlexRequest("/accounts");
+			AccountsResponse? json = JsonConvert.DeserializeObject<AccountsResponse>(content);
+			return Ok(json);
+		}
+		catch (Exception e)
+		{
+			return StatusCode(500, $"ERROR: {e.Message}");
+		}
+	}
+
+	[HttpGet("/plex/image/background/{FullPath}")]
+	public async Task<IActionResult> Background(string FullPath)
+	{
+		try
+		{
+			byte[] content = await this.PlexByteRequest($"/{FullPath}");
+			Console.WriteLine(content);
+			return Ok(content);
+		}
+		catch (Exception e)
+		{
+			return StatusCode(500, $"Error: {e.Message}");
+		}
+	}
+
 	[HttpGet("/plex/libraries")]
-	public async Task<IActionResult> GetLbraries()
+	public async Task<IActionResult> Libraries()
 	{
 		try
 		{
@@ -59,6 +76,20 @@ public class PlexController : PlexCoreController
 			}
 			var json = JsonConvert.DeserializeObject<LibrariesResponse>(content);
 			return Ok(json);
+		}
+		catch (Exception e)
+		{
+			return StatusCode(500, $"Error: {e.Message}");
+		}
+	}
+
+	[HttpGet("/plex/movie/{MovieId}")]
+	public async Task<IActionResult> Movie(int MovieId)
+	{
+		try
+		{
+			string content = await this.PlexRequest($"/library/metadata/{MovieId}");
+			return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
 		}
 		catch (Exception e)
 		{
@@ -88,20 +119,14 @@ public class PlexController : PlexCoreController
 		}
 	}
 
-	[HttpGet("/plex/movies/{LibraryId}/recently/released")]
-	public async Task<IActionResult> ResentMovieReleased(int LibraryId)
+	[HttpGet("/plex/image/poster/{FullPath}")]
+	public async Task<IActionResult> Poster(string FullPath)
 	{
-		bool valid = await this.IsLibraryType(LibraryTypes.MOVIE, LibraryId);
-
-		if (false == valid)
-		{
-			return BadRequest($"Desired library id {LibraryId} is not a movie library!");
-		}
-
 		try
 		{
-			string content = await this.PlexRequest($"/library/sections/{LibraryId}/newest");
-			return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
+			byte[] content = await this.PlexByteRequest($"/{FullPath}");
+			Console.WriteLine(content);
+			return Ok(content);
 		}
 		catch (Exception e)
 		{
@@ -110,7 +135,7 @@ public class PlexController : PlexCoreController
 	}
 
 	[HttpGet("/plex/movies/{LibraryId}/recently/added")]
-	public async Task<IActionResult> ResentMovieAdded(int LibraryId)
+	public async Task<IActionResult> ResentMoviesAdded(int LibraryId)
 	{
 		bool valid = await this.IsLibraryType(LibraryTypes.MOVIE, LibraryId);
 
@@ -130,43 +155,20 @@ public class PlexController : PlexCoreController
 		}
 	}
 
-	[HttpGet("/plex/movie/{MovieId}")]
-	public async Task<IActionResult> GetMovie(int MovieId)
+	[HttpGet("/plex/movies/{LibraryId}/recently/released")]
+	public async Task<IActionResult> ResentMoviesReleased(int LibraryId)
 	{
+		bool valid = await this.IsLibraryType(LibraryTypes.MOVIE, LibraryId);
+
+		if (false == valid)
+		{
+			return BadRequest($"Desired library id {LibraryId} is not a movie library!");
+		}
+
 		try
 		{
-			string content = await this.PlexRequest($"/library/metadata/{MovieId}");
+			string content = await this.PlexRequest($"/library/sections/{LibraryId}/newest");
 			return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
-		}
-		catch (Exception e)
-		{
-			return StatusCode(500, $"Error: {e.Message}");
-		}
-	}
-
-	[HttpGet("/plex/image/poster/{FullPath}")]
-	public async Task<IActionResult> GetPoster(string FullPath)
-	{
-		try
-		{
-			byte[] content = await this.PlexByteRequest($"/{FullPath}");
-			Console.WriteLine(content);
-			return Ok(content);
-		}
-		catch (Exception e)
-		{
-			return StatusCode(500, $"Error: {e.Message}");
-		}
-	}
-
-	[HttpGet("/plex/image/background/{FullPath}")]
-	public async Task<IActionResult> GetBackground(string FullPath)
-	{
-		try
-		{
-			byte[] content = await this.PlexByteRequest($"/{FullPath}");
-			Console.WriteLine(content);
-			return Ok(content);
 		}
 		catch (Exception e)
 		{
@@ -196,7 +198,7 @@ public class PlexController : PlexCoreController
 	}
 
 	[HttpGet("/plex/show/{ShowId}/seasons")]
-	public async Task<IActionResult> GetShowSeasons(int ShowId)
+	public async Task<IActionResult> ShowSeasons(int ShowId)
 	{
 		try
 		{
@@ -208,5 +210,7 @@ public class PlexController : PlexCoreController
 			return StatusCode(500, $"Error: {e.Message}");
 		}
 	}
+
+	#endregion
 }
 
