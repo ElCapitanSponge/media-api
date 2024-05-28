@@ -230,6 +230,10 @@ public class PlexController : PlexCoreController
 		}
 	}
 
+	// TODO: grab a single show season
+
+	// TODO: grab a single show from a show season
+
 	#endregion
 }
 
