@@ -106,7 +106,7 @@ public class MovieLibraryResponse
 
 public class ShowLibrary : LibraryCoreWrapper
 {
-	public required ShowBase[] metadata { get; set; }
+	public required ShowsBase[] metadata { get; set; }
 }
 
 public class ShowLibraryResponse
@@ -117,6 +117,8 @@ public class ShowLibraryResponse
 public class TagItem
 {
 	public required string tag { get; set; }
+	public int? id { get; set; }
+	public string? filter { get; set; }
 }
 
 public class Media
@@ -146,12 +148,18 @@ public class MediaPart
 	public required string key { get; set; }
 	public required int duration { get; set; }
 	public required string file { get; set; }
-	/* public required string size { get; set; } */
+	public int? size { get; set; }
 	public required string audioProfile { get; set; }
 	public required string container { get; set; }
 	public required bool has64bitOffsets { get; set; }
 	public required bool optimizedForStreaming { get; set; }
 	public required string videoProfile { get; set; }
+	public Stream[]? stream {get;set;}
+}
+
+public class Stream
+{
+	// TODO: add the elements for a stream object
 }
 
 public class MediaCommon
@@ -192,9 +200,13 @@ public class MoviesBase : MediaCommon
 	public required TagItem[] role { get; set; }
 }
 
+public class Movie : MediaCommon
+{
+
+}
 
 // INFO: Shows
-public class ShowBase : MediaCommon
+public class ShowsBase : MediaCommon
 {
 	public required string theme { get; set; }
 	public required int leafCount { get; set; }
