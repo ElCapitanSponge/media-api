@@ -110,8 +110,12 @@ public class PlexController : PlexCoreController
 		try
 		{
 			string content = await this.PlexRequest($"/library/sections/{LibraryId}/all");
-			return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
-			/* return Ok(json); */
+			if ("" == content)
+			{
+				return BadRequest("Error retrieving the movie lib information");
+			}
+			var json = JsonConvert.DeserializeObject<MovieLibraryResponse>(content);
+			return Ok(json);
 		}
 		catch (Exception e)
 		{
@@ -147,7 +151,12 @@ public class PlexController : PlexCoreController
 		try
 		{
 			string content = await this.PlexRequest($"/library/sections/{LibraryId}/recentlyAdded");
-			return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
+			if ("" == content)
+			{
+				return BadRequest("Error retrieving recently added movies");
+			}
+			var json = JsonConvert.DeserializeObject<MovieLibraryResponse>(content);
+			return Ok(json);
 		}
 		catch (Exception e)
 		{
@@ -168,7 +177,12 @@ public class PlexController : PlexCoreController
 		try
 		{
 			string content = await this.PlexRequest($"/library/sections/{LibraryId}/newest");
-			return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
+			if ("" == content)
+			{
+				return BadRequest("Error retrieving recently released movies");
+			}
+			var json = JsonConvert.DeserializeObject<MovieLibraryResponse>(content);
+			return Ok(json);
 		}
 		catch (Exception e)
 		{
@@ -189,7 +203,12 @@ public class PlexController : PlexCoreController
 		try
 		{
 			string content = await this.PlexRequest($"/library/sections/{LibraryId}/all");
-			return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
+			if ("" == content)
+			{
+				return BadRequest("Error retrieving the show collection");
+			}
+			var json = JsonConvert.DeserializeObject<ShowLibraryResponse>(content);
+			return Ok(json);
 		}
 		catch (Exception e)
 		{

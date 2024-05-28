@@ -85,64 +85,119 @@ public class LibraryListing
 }
 
 // INFO: Library
-public class LibraryWrapper : CoreWrapper
+public class LibraryCoreWrapper : CoreWrapper
 {
-	/* public LibraryRecord<MovieBase, ShowBase>[]? Metadata { get; set; } */
-	public object[]? Metadata { get; set; }
-}
-
-public class LibraryResponse
-{
-	public required string art { get; set; }
-	public required string content { get; set; }
 	public required int librarySectionID { get; set; }
 	public required string librarySectionTitle { get; set; }
 	public required string librarySectionUUID { get; set; }
 	public required string thumb { get; set; }
 	public required string viewGroup { get; set; }
-	public required LibraryWrapper MediaContainer { get; set; }
 }
 
-public abstract class LibraryRecord<M, S>
+public class MovieLibrary : LibraryCoreWrapper
 {
-	public abstract T Match<T>(Func<M, T> m, Func<S, T> s);
+	public required MoviesBase[] metadata { get; set; }
+}
 
-	private LibraryRecord() { }
+public class MovieLibraryResponse
+{
+	public required MovieLibrary MediaContainer { get; set; }
+}
 
-	public sealed class CaseMovie : LibraryRecord<M, S>
-	{
-		public readonly M Item;
-		public CaseMovie(M item) : base()
-		{
-			this.Item = item;
-		}
-		public override T Match<T>(Func<M, T> m, Func<S, T> s)
-		{
-			return m(Item);
-		}
-	}
+public class ShowLibrary : LibraryCoreWrapper
+{
+	public required ShowBase[] metadata { get; set; }
+}
 
-	public sealed class CaseShow : LibraryRecord<M, S>
-	{
-		public readonly S Item;
-		public CaseShow(S item) : base()
-		{
-			this.Item = item;
-		}
-		public override T Match<T>(Func<M, T> m, Func<S, T> s)
-		{
-			return s(Item);
-		}
-	}
+public class ShowLibraryResponse
+{
+	public required ShowLibrary MediaContainer { get; set; }
+}
+
+public class TagItem
+{
+	public required string tag { get; set; }
+}
+
+public class Media
+{
+	public required int id { get; set; }
+	public required int duration { get; set; }
+	public required int bitrate { get; set; }
+	public required int width { get; set; }
+	public required int height { get; set; }
+	public required decimal aspectRatio { get; set; }
+	public required int audioChannels { get; set; }
+	public required string audioCodec { get; set; }
+	public required string videoCodec { get; set; }
+	public required string videoResolution { get; set; }
+	public required string container { get; set; }
+	public required string videoFrameRate { get; set; }
+	public required bool optimizedForStreaming { get; set; }
+	public required string audioProfile { get; set; }
+	public required bool has64bitOffsets { get; set; }
+	public required string videoProfile { get; set; }
+	public required MediaPart[] part { get; set; }
+}
+
+public class MediaPart
+{
+	public required int id { get; set; }
+	public required string key { get; set; }
+	public required int duration { get; set; }
+	public required string file { get; set; }
+	/* public required string size { get; set; } */
+	public required string audioProfile { get; set; }
+	public required string container { get; set; }
+	public required bool has64bitOffsets { get; set; }
+	public required bool optimizedForStreaming { get; set; }
+	public required string videoProfile { get; set; }
+}
+
+public class MediaCommon
+{
+	public required int ratingKey { get; set; }
+	public required string key { get; set; }
+	public required string guid { get; set; }
+	public required string slug { get; set; }
+	public required string studio { get; set; }
+	// TODO: convert the type to an enum
+	public required string type { get; set; }
+	public required string title { get; set; }
+	public required string contentRating { get; set; }
+	public required string summary { get; set; }
+	public decimal? rating { get; set; }
+	public required decimal audienceRating { get; set; }
+	public required int lastViewedAt { get; set; }
+	public required int year { get; set; }
+	public required string tagline { get; set; }
+	public required string thumb { get; set; }
+	public required string art { get; set; }
+	public required int duration { get; set; }
+	public required DateTime originallyAvailableAt { get; set; }
+	public required int addedAt { get; set; }
+	public required int updatedAt { get; set; }
+	public required Media[] media { get; set; }
+	public required string audienceRatingImage { get; set; }
+	public string? ratingImage { get; set; }
 }
 
 // INFO: Movies
-public class MovieBase
+public class MoviesBase : MediaCommon
 {
+	public required TagItem[] genre { get; set; }
+	public required TagItem[] country { get; set; }
+	public required TagItem[] director { get; set; }
+	public required TagItem[] writer { get; set; }
+	public required TagItem[] role { get; set; }
 }
 
-// INFO: Shows
-public class ShowBase
-{
 
+// INFO: Shows
+public class ShowBase : MediaCommon
+{
+	public required string theme { get; set; }
+	public required int leafCount { get; set; }
+	public required int viewedLeafCount { get; set; }
+	public required int childCount { get; set; }
 }
