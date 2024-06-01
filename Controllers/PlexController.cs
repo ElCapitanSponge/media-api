@@ -25,7 +25,7 @@ public class PlexController : PlexCoreController
 		try
 		{
 			string content = await this.PlexRequest($"/accounts/{AccountId}");
-			var json = JsonConvert.DeserializeObject<AccountsResponse>(content);
+			AccountsResponse? json = JsonConvert.DeserializeObject<AccountsResponse>(content);
 			return Ok(json);
 		}
 		catch (Exception e)
@@ -74,7 +74,7 @@ public class PlexController : PlexCoreController
 			{
 				return BadRequest("Error retrieving plex library information!");
 			}
-			var json = JsonConvert.DeserializeObject<LibrariesResponse>(content);
+			LibrariesResponse? json = JsonConvert.DeserializeObject<LibrariesResponse>(content);
 			return Ok(json);
 		}
 		catch (Exception e)
@@ -89,7 +89,12 @@ public class PlexController : PlexCoreController
 		try
 		{
 			string content = await this.PlexRequest($"/library/metadata/{MovieId}");
-			return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
+			if ("" == content)
+			{
+				return BadRequest("Error retrieving the details for the desired movie");
+			}
+			MovieResponse? json = JsonConvert.DeserializeObject<MovieResponse>(content);
+			return Ok(json);
 		}
 		catch (Exception e)
 		{
@@ -114,7 +119,7 @@ public class PlexController : PlexCoreController
 			{
 				return BadRequest("Error retrieving the movie lib information");
 			}
-			var json = JsonConvert.DeserializeObject<MovieLibraryResponse>(content);
+			MovieLibraryResponse? json = JsonConvert.DeserializeObject<MovieLibraryResponse>(content);
 			return Ok(json);
 		}
 		catch (Exception e)
@@ -155,7 +160,7 @@ public class PlexController : PlexCoreController
 			{
 				return BadRequest("Error retrieving recently added movies");
 			}
-			var json = JsonConvert.DeserializeObject<MovieLibraryResponse>(content);
+			MovieLibraryResponse? json = JsonConvert.DeserializeObject<MovieLibraryResponse>(content);
 			return Ok(json);
 		}
 		catch (Exception e)
@@ -181,7 +186,7 @@ public class PlexController : PlexCoreController
 			{
 				return BadRequest("Error retrieving recently released movies");
 			}
-			var json = JsonConvert.DeserializeObject<MovieLibraryResponse>(content);
+			MovieLibraryResponse? json = JsonConvert.DeserializeObject<MovieLibraryResponse>(content);
 			return Ok(json);
 		}
 		catch (Exception e)
@@ -207,7 +212,7 @@ public class PlexController : PlexCoreController
 			{
 				return BadRequest("Error retrieving the show collection");
 			}
-			var json = JsonConvert.DeserializeObject<ShowLibraryResponse>(content);
+			ShowLibraryResponse? json = JsonConvert.DeserializeObject<ShowLibraryResponse>(content);
 			return Ok(json);
 		}
 		catch (Exception e)
@@ -226,7 +231,7 @@ public class PlexController : PlexCoreController
 			{
 				return BadRequest("Error retrieving the desired show");
 			}
-			var json = JsonConvert.DeserializeObject<ShowResponse>(content);
+			ShowResponse? json = JsonConvert.DeserializeObject<ShowResponse>(content);
 			return Ok(json);
 		}
 		catch (Exception e)

@@ -201,7 +201,12 @@ public class MoviesBase : MediaCommon
 
 public class Movie : MediaCommon
 {
+	// TODO: Add the allocations for a movies items
+}
 
+public class MovieResponse
+{
+    public required Movie mediaContainer { get; set; }
 }
 
 // INFO: Shows
