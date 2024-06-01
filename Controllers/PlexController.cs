@@ -222,7 +222,12 @@ public class PlexController : PlexCoreController
 		try
 		{
 			string content = await this.PlexRequest($"/library/metadata/{ShowId}/children");
-			return Ok(JsonConvert.SerializeObject(content, Formatting.Indented));
+			if ("" == content)
+			{
+				return BadRequest("Error retrieving the desired show");
+			}
+			var json = JsonConvert.DeserializeObject<ShowResponse>(content);
+			return Ok(json);
 		}
 		catch (Exception e)
 		{
