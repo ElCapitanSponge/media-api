@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace media_api.Controllers;
+namespace media_api.Controllers.Auth;
 
 [ApiController]
 [Route("[controller]")]

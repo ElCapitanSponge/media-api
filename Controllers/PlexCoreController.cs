@@ -1,10 +1,10 @@
 using System.Net.Http.Headers;
 using media_api.Middleware;
-using media_api.Models;
+using media_api.Models.Plex.Core;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace media_api.Controllers;
+namespace media_api.Controllers.Plex.Core;
 
 public class PlexCoreController : Controller
 {

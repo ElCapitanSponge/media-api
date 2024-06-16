@@ -1,8 +1,12 @@
+using media_api.Controllers.Plex.Core;
+using media_api.Models.Plex.Accounts;
+using media_api.Models.Plex.Core;
+using media_api.Models.Plex.Movies;
+using media_api.Models.Plex.Shows;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using media_api.Models;
 
-namespace media_api.Controllers;
+namespace media_api.Controllers.Plex;
 
 [ApiController]
 [Route("[controller]")]

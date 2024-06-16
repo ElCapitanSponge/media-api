@@ -1,4 +1,6 @@
-namespace media_api.Models;
+using media_api.Models.Plex.Core;
+
+namespace media_api.Models.Plex.Shows;
 
 // INFO: Shows
 public class ShowsBase : MediaCommon

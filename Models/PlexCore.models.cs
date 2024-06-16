@@ -1,4 +1,7 @@
-namespace media_api.Models;
+using media_api.Models.Plex.Movies;
+using media_api.Models.Plex.Shows;
+
+namespace media_api.Models.Plex.Core;
 
 // INFO: String like enums
 public static class LibraryTypes
@@ -91,11 +94,30 @@ public class ShowLibraryResponse
     public required ShowLibrary MediaContainer { get; set; }
 }
 
+public class IdStringItem
+{
+	public required string id { get; set; }
+}
+
+public class RatingItem
+{
+	public required string image { get; set; }
+	public required decimal rating { get; set; }
+	public required string type { get; set; }
+}
+
 public class TagItem
 {
     public required string tag { get; set; }
     public int? id { get; set; }
     public string? filter { get; set; }
+}
+
+public class ExtendedTagItem : TagItem
+{
+	public required string thumb { get; set; }
+	public required string tagKey { get; set; }
+	public string? role { get; set; }
 }
 
 public class Media
