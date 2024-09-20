@@ -57,8 +57,8 @@ public class PlexController : PlexCoreController
         try
         {
             string decodedPath = FullPath.Replace("%2F", "/");
-            string response = await this.PlexFileRequest($"{decodedPath}");
-            return Ok(response);
+            FileContentResult result = await this.PlexFileRequest($"{decodedPath}");
+            return result;
         }
         catch (Exception e)
         {

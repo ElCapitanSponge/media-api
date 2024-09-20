@@ -69,14 +69,15 @@ public class PlexCoreController : Controller
         return response.IsSuccessStatusCode ? await response.Content.ReadAsStringAsync() : "";
     }
 
-    protected async Task<string> PlexFileRequest(string route)
+    protected async Task<FileContentResult> PlexFileRequest(string route)
     {
         HttpResponseMessage response = await this.Client.GetAsync($"{this.PlexUrl}{route}");
         byte[] contentBytes = await response.Content.ReadAsByteArrayAsync();
         string contentType = response.Content.Headers.ContentType.ToString();
         FileContentResult file = File(contentBytes, contentType);
-		string base64Contents = Convert.ToBase64String(contentBytes);
-		return $"data:{contentType};base64,{base64Contents}";
+		return file;
+		/* string base64Contents = Convert.ToBase64String(contentBytes); */
+		/* return $"data:{contentType};base64,{base64Contents}"; */
     }
 
     private String PlexUrl
