@@ -5,6 +5,8 @@ An api for managing a Plex library.
 It allows the addition of movies (Radarr), shows (Sonarr) and display of the
 Plex libraries.
 
+Searching of content is facilitated vai integration with IMDB.
+
 ## Configuration
 
 ### .env
@@ -24,8 +26,15 @@ dotnet watch
 ```
 
 Running the hot reload using HTTPS:
-```
+
+```SHELL
 dotnet watch --launch-profile https
+```
+
+## Deploying to Local Docker
+
+```SHELL
+docker compose up
 ```
 
 ## TODO
