@@ -5,11 +5,16 @@ on:
     branches: [ "main" ]
 
 env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.actor }}/media-api:latest
 
 jobs:
   publish:
+    - name: set lower case owner name
+      run: |
+        echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+      env:
+        OWNER: '${{ github.repository_owner }}'
+        REGISTRY: ghcr.io
+        IMAGE_NAME: ${{ env.OWNER_LC }}/media-api:latest
     name: Publish Image
     runs-on: ubuntu-latest
     steps:
@@ -17,7 +22,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ${{ env.OWNER_LC }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: build and publish
         run: |
