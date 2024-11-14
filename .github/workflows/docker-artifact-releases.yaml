@@ -1,0 +1,36 @@
+name: Docker Artifact Publish
+
+on:
+  push:
+    branches:
+      - 'release/**'
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  publish:
+    name: Publish Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set IMAGE_NAME to lowercase and get the release version
+        run: |
+          RELEASE_VERSION=$(echo "${GITHUB_REF#refs/heads/release/}")
+          IMAGE_NAME="${{ env.REGISTRY }}/$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')/media-api:${RELEASE_VERSION}"
+          echo "IMAGE_NAME=${IMAGE_NAME}" >> $GITHUB_ENV
+
+      - name: Build and publish
+        run: |
+          docker build . --tag ${{ env.IMAGE_NAME }}
+          docker push ${{ env.IMAGE_NAME }}
+
