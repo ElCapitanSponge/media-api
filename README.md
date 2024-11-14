@@ -44,3 +44,4 @@ The following tasks are still required:
 - Connection and handling for Sonarr
 - Connection and handling for Radarr
 - Connection and handling for Readarr?
+- Actions for automation
