@@ -6,7 +6,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository_owner }}/media-api-dev:latest
 
 jobs:
   publish:
@@ -24,7 +23,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set IMAGE_NAME to lowercase
-        run: echo "IMAGE_NAME=${{ env.REGISTRY }}/$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')/media-api:latest" >> $GITHUB_ENV
+        run: echo "IMAGE_NAME=${{ env.REGISTRY }}/$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')/media-api:dev" >> $GITHUB_ENV
 
       - name: build and publish
         run: |
